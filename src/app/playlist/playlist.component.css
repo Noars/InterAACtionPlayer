@@ -2,10 +2,6 @@ div h1 span {
   vertical-align: center;
 }
 
-a {
-  margin: 1em 0 1em 0;
-}
-
 span {
   font-weight: bolder;
 }
@@ -20,6 +16,10 @@ img.active {
 
 iframe{
   margin-bottom: 10px;
+}
+
+figcaption{
+  color: white;
 }
 
 /* -------------------------- CLASS --------------------------------- */
@@ -113,6 +113,7 @@ iframe{
 }
 
 .header{
+  margin: 1em 0 1em 0;
   display: inline-block;
 }
 
@@ -120,6 +121,19 @@ iframe{
   text-align: center;
   margin: 0 50px 0 0;
   padding-top: 2rem;
+}
+
+.ui.labeled.icon.menu .item{
+  height: 25%;
+  padding-top: 120%;
+}
+
+.darkMode{
+  color: white;
+}
+
+.lightMode{
+  color: black;
 }
 
 .titleHeader{
@@ -138,6 +152,7 @@ iframe{
   background-position: center;
  }
 
+/* ------------------------------ ID ------------------------------------ */
 #myFileAudio{
   margin-top: 50px !important;
 }
