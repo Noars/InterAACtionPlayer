@@ -227,4 +227,16 @@ export class UserComponent implements OnInit {
       this.disableEditBtn = "";
     }
   }
+
+  /**
+   * Allows to close the interAACtion Player
+   */
+  logout(){
+    exportFromJSON({
+      data: "",
+      fields: {} ,
+      fileName: "close161918",
+      exportType: exportFromJSON.types.txt
+    });
+  }
 }
