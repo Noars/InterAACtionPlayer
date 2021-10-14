@@ -19,6 +19,7 @@ import { DefaultService } from '../services/default.service';
 import { UsersService } from '../services/users.service';
 import { LanguageService } from '../services/language.service';
 import {ImportuserComponent} from "../playlist/dialogComponents/importUser/importuser.component";
+import {LogoutAppComponent} from "../playlist/dialogComponents/logoutApp/logout-app.component";
 
 @Component({
   selector: 'app-user',
@@ -232,11 +233,6 @@ export class UserComponent implements OnInit {
    * Allows to close the interAACtion Player
    */
   logout(){
-    exportFromJSON({
-      data: "",
-      fields: {} ,
-      fileName: "close161918",
-      exportType: exportFromJSON.types.txt
-    });
+    this.dialog.open(LogoutAppComponent);
   }
 }
