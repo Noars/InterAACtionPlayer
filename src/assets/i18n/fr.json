@@ -200,7 +200,8 @@
     "english": "Anglais",
     "sun": "Thème clair",
     "moon": "Thème sombre",
-    "editBtn": "Mode édition"
+    "editBtn": "Mode édition",
+    "logoutBtn": "Déconnexion"
   },
   "userForm": {
     "title": "Nouvelle utilisateur",
