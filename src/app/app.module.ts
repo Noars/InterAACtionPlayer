@@ -56,6 +56,7 @@ import { ModifyUserComponent } from './playlist/dialogComponents/modifyUser/modi
 import { DeezerPlayerComponent } from './playlist/audioPlayer/deezerPlayer/deezer-player.component';
 import { AccountsComponent } from './playlist/dialogComponents/accounts/accounts.component';
 import { ImportuserComponent } from './playlist/dialogComponents/importUser/importuser.component';
+import { SettingsPageComponent } from './settingsPage/settings-page.component';
 
 /**
  * Import module Sub-Application
@@ -104,7 +105,8 @@ import { PipeModule } from '../../projects/deezer/src/app/pipe/pipe.module';
     ModifyUserComponent,
     DeezerPlayerComponent,
     AccountsComponent,
-    ImportuserComponent
+    ImportuserComponent,
+    SettingsPageComponent
   ],
   imports: [
     BrowserModule,
@@ -118,6 +120,7 @@ import { PipeModule } from '../../projects/deezer/src/app/pipe/pipe.module';
     RouterModule.forRoot([
       {path: 'user', component: UserComponent},
       {path: 'playlist', component: PlaylistComponent},
+      {path: 'settings', component: SettingsPageComponent},
       {path: 'youtube', loadChildren: '../../projects/src/app/app.module#YoutubeShareModule'},
       {path: 'spotify', loadChildren: '../../projects/src/app/app.module#SpotifySharedModule'},
       {path: 'deezer', loadChildren: '../../projects/src/app/app.module#DeezerSharedModule'},

@@ -331,13 +331,7 @@ export class PlaylistComponent implements OnInit {
    * If it's the case then enable edit mode
    */
   openSettings(){
-    this.isEditModeActive();
-    const settingsDialog = this.dialog.open(SettingsComponent);
-    settingsDialog.afterClosed().subscribe( () => {
-      if (this.isPlaylistEmpty()){
-        this.goEdit();
-      }
-    });
+    this.router.navigate(['/settings']);
   }
 
   /**
