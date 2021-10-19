@@ -38,6 +38,7 @@ import { AlertService } from './services/alert.service';
  * Import Models
  */
 import { Types } from './model/types-interface';
+import {LanguageService} from "../services/language.service";
 
 /**
  * Import functions javascript
@@ -136,7 +137,8 @@ export class PlaylistComponent implements OnInit {
               defaultService: DefaultService,
               usersService: UsersService,
               authGuardService: AuthguardService,
-              alertService: AlertService) {
+              alertService: AlertService,
+              private languageService: LanguageService) {
     this.notifier = notifier;
     this.sanitizer = sanitizer;
     this.dialog = dialog;
@@ -174,7 +176,7 @@ export class PlaylistComponent implements OnInit {
         this.textColor = "lightMode";
       }
     });
-    new DialogChooseTypeComponent(this.router, this.dialog, this.playlistService);
+    new DialogChooseTypeComponent(this.router, this.dialog, this.playlistService, this.languageService);
     setTimeout(() => {
       initDeezer();
       this.playList = this.playlistService.playList;
@@ -443,7 +445,7 @@ export class PlaylistComponent implements OnInit {
   logout(){
     logoutDeezer();
     this.globalService.getLogoutAccountSpotify();
-    this.router.navigate(['user']);
+    this.router.navigate([ this.languageService.activeLanguage + '/user']);
   }
 
   /**

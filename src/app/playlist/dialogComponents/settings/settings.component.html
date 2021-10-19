@@ -17,25 +17,6 @@
     </div>
     <div class="field">
       <label>
-        {{ 'settingsPlaylist.languages' | translate }}
-      </label>
-      <div class="ui vertical fuild tabular menu">
-        <a class="item" (click)="seeLanguages()">
-          {{ 'settingsPlaylist.languages' | translate }}
-          <i class="dropdown icon"></i>
-        </a>
-        <a id="en" class="item" *ngIf="moreLanguages" (click)="switchLanguage('en')">
-          {{ 'settingsPlaylist.english-language' | translate }}
-          <i class="gb uk flag"></i>
-        </a>
-        <a id="fr" class="item" *ngIf="moreLanguages" (click)="switchLanguage('fr')">
-          {{ 'settingsPlaylist.french-language' | translate }}
-          <i class="fr flag"></i>
-        </a>
-      </div>
-    </div>
-    <div class="field">
-      <label>
         {{ 'settingsPlaylist.dwellTime' | translate }}
       </label>
         <div class="field">
