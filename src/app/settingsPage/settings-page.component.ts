@@ -42,6 +42,9 @@ export class SettingsPageComponent implements OnInit {
   btnAlertMessageNo;
 
   error: boolean = false;
+  ready = false;
+
+  colorText = "";
 
   constructor(public authGuardService: AuthguardService,
               private dwellTimeService: DwelltimeService,
@@ -56,6 +59,9 @@ export class SettingsPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.authGuardService.canAccess();
+    setTimeout(() => {
+      this.ready = true;
+    }, 500);
     this.isThemeLightEnable();
     this.isDwellTimeEnable();
     this.getDwellTimeValue();
@@ -70,6 +76,7 @@ export class SettingsPageComponent implements OnInit {
   toggleThemeLight(){
     this.themeValue = "";
     this.themeService.emitTheme(this.themeValue);
+    this.colorText = "colorDark";
     this.saveService.updateSettings();
   }
 
@@ -79,6 +86,7 @@ export class SettingsPageComponent implements OnInit {
   toggleThemeDark(){
     this.themeValue = "inverted";
     this.themeService.emitTheme(this.themeValue);
+    this.colorText = "colorLight";
     this.saveService.updateSettings();
   }
 
@@ -129,10 +137,11 @@ export class SettingsPageComponent implements OnInit {
    */
   setActiveLanguage(){
     setTimeout(() => {
-      const elem = document.getElementById(this.language.getActiveLanguage())
+      this.usedLanguage = this.language.getActiveLanguage();
+      const elem = document.getElementById(this.usedLanguage);
       elem.classList.add("active");
       elem.classList.add("langues");
-    }, 500);
+    }, 250);
   }
 
   /**
@@ -195,7 +204,7 @@ export class SettingsPageComponent implements OnInit {
         this.btnDwellTimeYes = "" ;
         this.btnDwellTimeNo = "checked";
       }
-    }, 500);
+    }, 250);
   }
 
   isThemeLightEnable() {
@@ -203,11 +212,13 @@ export class SettingsPageComponent implements OnInit {
       if (this.themeService.getTypeTheme()){
         this.btnThemeLight = "checked";
         this.btnThemeDark = "";
+        this.colorText = "colorDark";
       }else {
         this.btnThemeLight = "" ;
         this.btnThemeDark = "checked";
+        this.colorText = "colorLight";
       }
-    }, 500);
+    }, 250);
   }
 
   isAlertMessageEnable() {
@@ -219,13 +230,13 @@ export class SettingsPageComponent implements OnInit {
         this.btnAlertMessageYes = "" ;
         this.btnAlertMessageNo = "checked";
       }
-    }, 500);
+    }, 250);
   }
 
   getDwellTimeValue(){
     setTimeout(() => {
       this.dwellTimeValue = this.dwellTimeService.dwellTimeValue;
-    }, 500);
+    }, 250);
   }
 
   isDiskProgressEnable(){
@@ -238,7 +249,7 @@ export class SettingsPageComponent implements OnInit {
         this.btnDiskProgress = "" ;
         this.btnCircleProgress = "checked";
       }
-    }, 500);
+    }, 250);
   }
 
   isSpinnerOutsideEnable(){
@@ -250,7 +261,7 @@ export class SettingsPageComponent implements OnInit {
         this.btnSpinnerOutside = "" ;
         this.btnSpinnerInside = "checked";
       }
-    }, 500);
+    }, 250);
   }
 
   goBack(){

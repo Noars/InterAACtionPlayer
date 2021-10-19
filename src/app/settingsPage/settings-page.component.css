@@ -1,9 +1,23 @@
-
-
-label{
-  font-size: medium !important;
+label ,a{
+  font-size: large !important;
 }
 
 .container{
   margin-left: 7%;
+}
+
+.colorLight{
+  color: white !important;
+}
+
+.colorDark{
+  color: black !important;
+}
+
+.langues{
+  color: black !important;
+}
+
+#inputDwellTime{
+  margin-left: 10px;
 }
