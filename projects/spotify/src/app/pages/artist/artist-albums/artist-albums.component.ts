@@ -30,8 +30,4 @@ export class ArtistAlbumsComponent implements OnInit {
   public seeAlbum(album: any): void {
     this.router.navigate([this.languageService.activeLanguage + '/spotify/album', album.id]);
   }
-
-  goAlbum(){
-
-  }
 }

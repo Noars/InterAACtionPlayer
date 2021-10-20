@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ThemeService } from '../../../../../../../src/app/services/theme.service';
 import { GlobalService } from '../../../services/global.service';
 import {Router} from '@angular/router';
+import {LanguageService} from "../../../../../../../src/app/services/language.service";
+import {Location} from "@angular/common";
 
 @Component({
   selector: 'app-artists',
@@ -21,7 +23,9 @@ export class ArtistsComponent implements OnInit {
 
   constructor(private themeService: ThemeService,
               private globalService: GlobalService,
-              private router: Router) {
+              private router: Router,
+              private languageService: LanguageService,
+              private location: Location) {
     this.theme = themeService.theme;
   }
 
@@ -59,6 +63,10 @@ export class ArtistsComponent implements OnInit {
    */
   public seeAlbum(album: any): void {
     this.globalService.albumChoose = album;
-    this.router.navigate(['/deezer/albums', album.id]);
+    this.router.navigate([this.languageService.activeLanguage + '/deezer/albums', album.id]);
+  }
+
+  goBack(){
+    this.location.back();
   }
 }
