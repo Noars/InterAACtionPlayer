@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 // Services
 import { ArtistService } from '../services/artist.service';
 import { ThemeService } from '../../../../../../../src/app/services/theme.service';
+import {Location} from "@angular/common";
 
 @Component({
   selector: 'app-artist',
@@ -23,7 +24,7 @@ export class ArtistComponent implements OnInit {
   artistName;
   artistFollower;
 
-  constructor( private activatedRoute: ActivatedRoute, private artistService: ArtistService, private themeService: ThemeService ) {
+  constructor( private activatedRoute: ActivatedRoute, private artistService: ArtistService, private themeService: ThemeService, private location: Location, ) {
     this.theme = themeService.theme;
   }
 
@@ -71,5 +72,9 @@ export class ArtistComponent implements OnInit {
     this.artistService.getAlbums(this.artistId).subscribe((albums: any) => {
       this.albums = albums;
     });
+  }
+
+  goBack(){
+    this.location.back();
   }
 }
