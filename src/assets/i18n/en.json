@@ -200,7 +200,8 @@
     "english": "English",
     "sun": "Light theme",
     "moon": "Dark theme",
-    "editBtn": "Edit mode"
+    "editBtn": "Edit mode",
+    "logoutBtn": "Logout"
   },
   "userForm": {
     "title": "New User",
