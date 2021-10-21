@@ -1,13 +1,6 @@
 <div id="dz-root"></div>
 <br>
 <div *ngIf="displaySideBar() && !fullScreen" [ngClass]="theme" class="ui four left vertical visible sidebar labeled icon menu">
-  <a id="playlistSideIcon" class="item" (click)="goOnElement('playlist')"
-     (mouseenter)="showProgressIndicator('playlistSideIcon', idProgressIndicatorSideIconPlaylist); showBtn('playlistSideIcon')"
-     (mouseleave)="hideProgressIndicator('playlistSideIcon', idProgressIndicatorSideIconPlaylist); hideBtn('playlistSideIcon')">
-    <i class="huge home icon"></i>
-    <app-progress-indicator [id]="idProgressIndicatorSideIconPlaylist" [spinnerValue]="spinnerValue" [type]="sideIconType"></app-progress-indicator>
-    {{ "playlist.playlist" | translate }}
-  </a>
   <a id="upSideIcon" class="item" (click)="goUp()"
      (mouseenter)="showProgressIndicator('upSideIcon', idProgressIndicatorSideIconUp); showBtn('upSideIcon')"
      (mouseleave)="hideProgressIndicator('upSideIcon', idProgressIndicatorSideIconUp); hideBtn('upSideIcon')">
@@ -21,22 +14,6 @@
     <i class="arrow down icon"></i>
     <app-progress-indicator [id]="idProgressIndicatorSideIconDown" [spinnerValue]="spinnerValue" [type]="sideIconType"></app-progress-indicator>
     {{ "playlist.down" | translate }}
-  </a>
-  <a *ngIf="launch && (currentElem.types == 'Spotify' || currentElem.types == 'Deezer' || currentElem.types == 'song')"
-     id="musicSideIcon" class="item" (click)="goOnElement('watchPlace')"
-     (mouseenter)="showProgressIndicator('musicSideIcon', idProgressIndicatorSideIconMusic); showBtn('musicSideIcon')"
-     (mouseleave)="hideProgressIndicator('musicSideIcon', idProgressIndicatorSideIconMusic); hideBtn('musicSideIcon')">
-    <i class="music icon"></i>
-    <app-progress-indicator [id]="idProgressIndicatorSideIconMusic" [spinnerValue]="spinnerValue" [type]="sideIconType"></app-progress-indicator>
-    {{ "playlist.music" | translate }}
-  </a>
-  <a *ngIf="launch && (currentElem.types == 'YouTube' || currentElem.types == 'video')"
-     id="videoSideIcon" class="item" (click)="goOnElement('watchPlace')"
-     (mouseenter)="showProgressIndicator('videoSideIcon', idProgressIndicatorSideIconVideo); showBtn('videoSideIcon')"
-     (mouseleave)="hideProgressIndicator('videoSideIcon', idProgressIndicatorSideIconVideo); hideBtn('videoSideIcon')">
-    <i class="film icon"></i>
-    <app-progress-indicator [id]="idProgressIndicatorSideIconVideo" [spinnerValue]="spinnerValue" [type]="sideIconType"></app-progress-indicator>
-    {{ "playlist.video" | translate }}
   </a>
 </div>
 <div id="playlist" class="ui centered grid">

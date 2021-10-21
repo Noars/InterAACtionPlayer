@@ -128,6 +128,8 @@ import { PipeModule } from '../../projects/deezer/src/app/pipe/pipe.module';
       {path: 'en/spotify', loadChildren: '../../projects/src/app/app.module#SpotifySharedModule'},
       {path: 'fr/deezer', loadChildren: '../../projects/src/app/app.module#DeezerSharedModule'},
       {path: 'en/deezer', loadChildren: '../../projects/src/app/app.module#DeezerSharedModule'},
+      {path: '', redirectTo: 'fr/user', pathMatch:'full'},
+      {path: '**', redirectTo: 'fr/user', pathMatch:'full'},
     ], {useHash: true}),
     TranslateModule.forRoot({
       loader: {

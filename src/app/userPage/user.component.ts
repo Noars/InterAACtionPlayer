@@ -45,6 +45,8 @@ export class UserComponent implements OnInit {
 
   ngOnInit(): void {
     this.notLogging();
+    this.languageService.activeLanguage = location.href.substring(24,26);
+    this.languageService.switchLanguage();
     this.theme = this.themeService.theme;
     this.themeService.themeObservable.subscribe(value => {
       this.theme = value;
