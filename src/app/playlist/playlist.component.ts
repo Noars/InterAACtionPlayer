@@ -86,11 +86,9 @@ export class PlaylistComponent implements OnInit {
   idProgressIndicatorBtnClose = "btnCloseProgressSpinner";
 
   sideIconType: number = 2;
-  idProgressIndicatorSideIconPlaylist = "sideIconPlaylistProgressSpinner";
   idProgressIndicatorSideIconUp = "sideIconUpProgressSpinner";
   idProgressIndicatorSideIconDown = "sideIconDownProgressSpinner";
   idProgressIndicatorSideIconMusic= "sideIconMusicProgressSpinner";
-  idProgressIndicatorSideIconVideo = "sideIconVideoProgressSpinner";
 
   iconType: number = 5;
   idProgressIndicatorIconSave = "iconSaveProgressSpinner";
@@ -105,6 +103,7 @@ export class PlaylistComponent implements OnInit {
   idProgressIndicatorIconNew = "iconNewProgressSpinner";
 
   refresh = false;
+  loopProgressIndicator = false;
 
   private notifier: NotifierService;
   private sanitizer: DomSanitizer;
@@ -771,16 +770,18 @@ export class PlaylistComponent implements OnInit {
   /**
    * @param elemId -> id of the element containing the spinner
    * @param spinnerId -> id of the spinner selected
+   * @param loop
    *
    * Show the spinner when the user mouseover the element
    */
-  showProgressIndicator(elemId: string, spinnerId: any) {
+  showProgressIndicator(elemId: string, spinnerId: any, loop?: boolean) {
+    clearInterval(this.timeout);
     const id = document.getElementById(elemId);
     id.style.opacity = '0.5';
-    if (this.dwelltimeService.dwellTime && (elemId != 'btnAddToPlaylistInterAACtionPlayer')){
+    if (this.dwelltimeService.dwellTime){
       const spinner = document.getElementById(String(spinnerId));
       spinner.style.visibility = 'visible';
-      this.startInterval(elemId, spinnerId, id);
+      this.startInterval(elemId, spinnerId, id, loop);
     }
   }
 
@@ -792,6 +793,7 @@ export class PlaylistComponent implements OnInit {
    * Delete the current Interval
    */
   hideProgressIndicator(elemId: string, spinnerId: any) {
+    this.loopProgressIndicator = false;
     const card = document.getElementById(elemId);
     const spinner = document.getElementById(String(spinnerId));
     card.style.opacity = '1';
@@ -805,15 +807,25 @@ export class PlaylistComponent implements OnInit {
    * @param elemId -> id of the element containing the spinner
    * @param spinnerId -> id of the spinner selected
    * @param id -> htmlElement
+   * @param loop
    *
    * When the spinner is show, launch an interval
    * When this interval is finish, simulate a user click
    * If the user leave before the end of the interval, the interval timer is reset
    */
-  startInterval(elemId: string, spinnerId: any, id: HTMLElement) {
+  startInterval(elemId: string, spinnerId: any, id: HTMLElement, loop?: boolean) {
+    if (loop != null) {
+      this.loopProgressIndicator = loop;
+    }
     this.spinnerValue = 0;
     this.timeout = setInterval(() => {
-      if (this.spinnerValue == 100){
+      if (this.spinnerValue == 100 && loop){
+        clearInterval(this.timeout);
+        setTimeout( () => {
+          id.click();
+          this.startInterval(elemId, spinnerId, id, loop);
+        }, 500);
+      }else if (this.spinnerValue == 100){
         clearInterval(this.timeout);
         setTimeout( () => {
           this.hideProgressIndicator(elemId, spinnerId);

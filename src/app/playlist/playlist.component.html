@@ -2,14 +2,14 @@
 <br>
 <div *ngIf="displaySideBar() && !fullScreen" [ngClass]="theme" class="ui four left vertical visible sidebar labeled icon menu">
   <a id="upSideIcon" class="item" (click)="goUp()"
-     (mouseenter)="showProgressIndicator('upSideIcon', idProgressIndicatorSideIconUp); showBtn('upSideIcon')"
+     (mouseenter)="showProgressIndicator('upSideIcon', idProgressIndicatorSideIconUp, true); showBtn('upSideIcon')"
      (mouseleave)="hideProgressIndicator('upSideIcon', idProgressIndicatorSideIconUp); hideBtn('upSideIcon')">
     <i class="arrow up icon"></i>
     <app-progress-indicator [id]="idProgressIndicatorSideIconUp" [spinnerValue]="spinnerValue" [type]="sideIconType"></app-progress-indicator>
     {{ "playlist.up" | translate }}
   </a>
   <a id="downSideIcon" class="item" (click)="goDown()"
-     (mouseenter)="showProgressIndicator('downSideIcon', idProgressIndicatorSideIconDown); showBtn('downSideIcon')"
+     (mouseenter)="showProgressIndicator('downSideIcon', idProgressIndicatorSideIconDown, true); showBtn('downSideIcon')"
      (mouseleave)="hideProgressIndicator('downSideIcon', idProgressIndicatorSideIconDown); hideBtn('downSideIcon')">
     <i class="arrow down icon"></i>
     <app-progress-indicator [id]="idProgressIndicatorSideIconDown" [spinnerValue]="spinnerValue" [type]="sideIconType"></app-progress-indicator>
