@@ -31,7 +31,6 @@ export class UserComponent implements OnInit {
   usersList = [];
 
   theme = "";
-  showBtn = false;
   disableEditBtn = "";
   loading = "";
 
@@ -210,20 +209,12 @@ export class UserComponent implements OnInit {
   }
 
   /**
-   * Allows to display or hide buttons Modify and Delete
-   */
-  goEdit(){
-    this.showBtn = !this.showBtn;
-  }
-
-  /**
    * Check if user list is empty
    * Then disable the edit button if it's true
    */
   isListUserEmpty(){
     if (this.usersList.length == 0){
       this.disableEditBtn = "disabled";
-      this.goEdit();
     }else {
       this.disableEditBtn = "";
     }
