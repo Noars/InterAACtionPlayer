@@ -74,6 +74,7 @@ export class PlaylistComponent implements OnInit {
   theme = "";
   textColor = "";
   index = -1;
+  displayTheSideBar = false;
 
   btnType: number = 1;
   idProgressIndicatorBtnNext = "btnNextProgressSpinner";
@@ -179,6 +180,7 @@ export class PlaylistComponent implements OnInit {
     setTimeout(() => {
       initDeezer();
       this.playList = this.playlistService.playList;
+      this.displaySideBar();
       if (this.isPlaylistEmpty()){
         this.goEdit()
       }
@@ -207,6 +209,9 @@ export class PlaylistComponent implements OnInit {
    */
   deleteCurrentElement(){
     this.launch = false;
+    setTimeout(() => {
+      this.displaySideBar();
+    }, 300)
   }
 
   /**
@@ -247,6 +252,7 @@ export class PlaylistComponent implements OnInit {
           this.saveService.updatePlaylist();
           this.notifier.notify('warning', this.translate.instant('notifier.newPlaylist'));
           this.goEdit();
+          this.displaySideBar();
         }
       });
     }else {
@@ -380,10 +386,12 @@ export class PlaylistComponent implements OnInit {
     if (this.edit){
       this.disableDragDrop = true;
       this.playlistService.addBtnAdd();
+      this.displaySideBar();
       this.notifier.notify('warning', this.translate.instant('notifier.editOn'));
     }else {
       this.disableDragDrop = false;
       this.playList = this.playlistService.deleteBtnAdd();
+      this.displaySideBar();
       this.notifier.notify('warning', this.translate.instant('notifier.editOff'));
     }
   }
@@ -400,6 +408,7 @@ export class PlaylistComponent implements OnInit {
       this.isCurrentElem(elem);
       this.playList = this.playlistService.deleteToPlaylist(elem);
       this.saveService.updatePlaylist();
+      this.displaySideBar();
       setTimeout(() => {
         this.playlistService.addBtnAdd();
       }, 100);
@@ -411,6 +420,7 @@ export class PlaylistComponent implements OnInit {
           this.isCurrentElem(elem);
           this.playList = this.playlistService.deleteToPlaylist(elem);
           this.saveService.updatePlaylist();
+          this.displaySideBar();
           setTimeout(() => {
             this.playlistService.addBtnAdd();
           }, 100);
@@ -455,6 +465,9 @@ export class PlaylistComponent implements OnInit {
       this.refreshAudioPlayer();
       this.goOnElement("watchPlace");
       this.setDefaultVolume();
+      setTimeout(() =>{
+        this.displaySideBar();
+      }, 300);
     }
   }
 
@@ -621,6 +634,7 @@ export class PlaylistComponent implements OnInit {
     this.goOnElement("watchPlace");
     this.setDefaultVolume();
     this.refreshAudioPlayer();
+    this.displaySideBar();
   }
 
   /**
@@ -647,6 +661,7 @@ export class PlaylistComponent implements OnInit {
     this.goOnElement("watchPlace");
     this.setDefaultVolume();
     this.refreshAudioPlayer();
+    this.displaySideBar();
   }
 
   /**
@@ -863,7 +878,7 @@ export class PlaylistComponent implements OnInit {
    * True if we can scroll
    */
   displaySideBar(){
-    return document.body.scrollHeight > document.body.offsetHeight;
+    this.displayTheSideBar = document.body.scrollHeight > document.body.offsetHeight;
   }
 
   getBrightnessOfAFSRLogo() {

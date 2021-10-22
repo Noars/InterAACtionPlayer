@@ -1,6 +1,6 @@
 <div id="dz-root"></div>
 <br>
-<div *ngIf="displaySideBar() && !fullScreen" [ngClass]="theme" class="ui four left vertical visible sidebar labeled icon menu">
+<div *ngIf="displayTheSideBar && !fullScreen" [ngClass]="theme" class="ui four left vertical visible sidebar labeled icon menu">
   <a id="upSideIcon" class="item" (click)="goUp()"
      (mouseenter)="showProgressIndicator('upSideIcon', idProgressIndicatorSideIconUp, true); showBtn('upSideIcon')"
      (mouseleave)="hideProgressIndicator('upSideIcon', idProgressIndicatorSideIconUp); hideBtn('upSideIcon')">
