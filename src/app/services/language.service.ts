@@ -27,4 +27,8 @@ export class LanguageService {
   public switchLanguage(){
     this.translate.use(this.activeLanguage);
   }
+
+  public getActiveLanguage(){
+    return this.activeLanguage;
+  }
 }

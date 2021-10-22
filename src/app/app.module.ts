@@ -56,7 +56,7 @@ import { ModifyUserComponent } from './playlist/dialogComponents/modifyUser/modi
 import { DeezerPlayerComponent } from './playlist/audioPlayer/deezerPlayer/deezer-player.component';
 import { AccountsComponent } from './playlist/dialogComponents/accounts/accounts.component';
 import { ImportuserComponent } from './playlist/dialogComponents/importUser/importuser.component';
-import { LogoutAppComponent } from './playlist/dialogComponents/logoutApp/logout-app.component';
+import { SettingsPageComponent } from './settingsPage/settings-page.component';
 
 /**
  * Import module Sub-Application
@@ -106,7 +106,7 @@ import { PipeModule } from '../../projects/deezer/src/app/pipe/pipe.module';
     DeezerPlayerComponent,
     AccountsComponent,
     ImportuserComponent,
-    LogoutAppComponent
+    SettingsPageComponent
   ],
   imports: [
     BrowserModule,
