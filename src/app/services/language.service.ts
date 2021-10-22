@@ -6,7 +6,8 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class LanguageService {
 
-  public activeLanguage: string = 'fr';
+  public startLanguage: string = "default";
+  public activeLanguage: string = location.href.substring(24, 26);
 
   /**
    * @param translate -> Initialize ngx-translate library
@@ -14,17 +15,16 @@ export class LanguageService {
    * Set the default language to French (fr)
    */
   constructor(private translate: TranslateService) {
-    this.translate.setDefaultLang(this.activeLanguage);
+      this.translate.setDefaultLang(this.startLanguage);
+      setTimeout(() => {
+        this.switchLanguage();
+      }, 500);
   }
 
   /**
-   * @param language -> The language the user wants to use
-   *
-   * Set the language choose by the user in the activeLanguage variable
-   * Activate the language that the user has chosen
+   * Activate the language that has been chosen
    */
-  public switchLanguage(language: string){
-    this.activeLanguage = language;
-    this.translate.use(language);
+  public switchLanguage(){
+    this.translate.use(this.activeLanguage);
   }
 }

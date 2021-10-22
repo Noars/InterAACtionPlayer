@@ -3,7 +3,7 @@
   <h2 [ngClass]="theme" class="ui center aligned header">{{ artistName }}</h2>
   <h3 [ngClass]="theme" class="ui center aligned header">{{ artistNbAlbums }} {{ 'deezerArtist.albums' | translate }}</h3>
   <h3 [ngClass]="theme" class="ui center aligned header">{{ artistNbFan }} {{ 'deezerArtist.followers' | translate }}</h3>
-  <button class="ui button" [routerLink]="['/deezer/search']">
+  <button class="ui button" (click)="goBack()">
     <i class="left arrow icon"></i>
     {{ "deezerArtist.back" | translate }}
   </button>
@@ -16,7 +16,7 @@
             <img [src]="album.cover" alt="{{ album.title }}">
           </div>
           <div class="content">
-            <a class="header" [routerLink]="['/deezer/albums', album.id]">{{ album.title }}</a>
+            <a class="header" (click)="seeAlbum(album)">{{ album.title }}</a>
           </div>
         </div>
       </div>

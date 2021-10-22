@@ -3,11 +3,11 @@
     <img class="ui mini spaced image" src="assets/iconeDeezer.jpeg" alt="logo deezer">
     Deezer
   </a>
-  <a class="item" routerLink="search">
+  <a class="item" (click)="goSearch()">
     <i class="home icon"></i>
     {{ 'deezerNavbar.home' | translate }}
   </a>
-  <a class="item" routerLink="/playlist">
+  <a class="item" (click)="goPlaylist()">
     <i class="arrow left icon"></i>
     {{ 'deezerNavbar.playlist' | translate }}
   </a>

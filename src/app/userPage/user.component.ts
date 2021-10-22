@@ -9,6 +9,7 @@ import exportFromJSON from 'export-from-json';
 import { UserFormComponent } from '../playlist/dialogComponents/userForm/user-form.component';
 import { DeleteUserComponent } from '../playlist/dialogComponents/deleteUser/delete-user.component';
 import { ModifyUserComponent } from '../playlist/dialogComponents/modifyUser/modify-user.component';
+import { ImportuserComponent } from "../playlist/dialogComponents/importUser/importuser.component";
 
 /**
  * Import Services
@@ -17,9 +18,7 @@ import { ThemeService } from '../services/theme.service';
 import { SaveService } from '../services/save.service';
 import { DefaultService } from '../services/default.service';
 import { UsersService } from '../services/users.service';
-import { LanguageService } from '../services/language.service';
-import {ImportuserComponent} from "../playlist/dialogComponents/importUser/importuser.component";
-import {LogoutAppComponent} from "../playlist/dialogComponents/logoutApp/logout-app.component";
+import {LanguageService} from "../services/language.service";
 
 @Component({
   selector: 'app-user',
@@ -65,7 +64,7 @@ export class UserComponent implements OnInit {
     this.saveService.updatePlaylist();
     this.saveService.updateSettings();
     this.saveService.updateMapPlaylist();
-    this.router.navigate(['playlist']);
+    this.router.navigate([this.languageService.activeLanguage + '/playlist']);
   }
 
   /**
@@ -75,7 +74,7 @@ export class UserComponent implements OnInit {
     this.usersService.typeUser = "user";
     this.usersService.idUser = id;
     this.saveService.updateUser();
-    this.router.navigate(['playlist']);
+    this.router.navigate([this.languageService.activeLanguage + '/playlist']);
   }
 
   /**
@@ -144,7 +143,6 @@ export class UserComponent implements OnInit {
           this.saveService.playlistUser,
           this.saveService.namePlaylistUser,
           this.saveService.themeUser,
-          this.saveService.languageUser,
           this.saveService.dwellTimeUser,
           this.saveService.alertMessageUser,
           mapPlaylist
@@ -200,12 +198,10 @@ export class UserComponent implements OnInit {
   }
 
   /**
-   * @param value
-   *
-   * Set the language according with the choice of the user
+   * Allows to display or hide buttons Modify and Delete
    */
-  setLanguage(value){
-    this.languageService.switchLanguage(value);
+  goEdit(){
+    this.showBtn = !this.showBtn;
   }
 
   /**
