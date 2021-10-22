@@ -113,6 +113,12 @@
     "cancel": "Cancel",
     "submit": "Modify"
   },
+  "logoutApp": {
+    "title": "Exit InterAACtion Player ?",
+    "text": "Do you want to leave InterAACtion Player and return to the menu ?",
+    "yes": "Oui",
+    "no": "Non"
+  },
   "account": {
     "title": "Accounts",
     "spotify": "Spotify account",
@@ -198,7 +204,8 @@
     "english": "English",
     "sun": "Light theme",
     "moon": "Dark theme",
-    "editBtn": "Edit mode"
+    "editBtn": "Edit mode",
+    "logoutBtn": "Logout"
   },
   "userForm": {
     "title": "New User",

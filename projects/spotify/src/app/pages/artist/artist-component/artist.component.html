@@ -2,7 +2,7 @@
   <img class="ui small centered circular image" [src]="artistImage | errorImage" [alt]="artistName">
   <h2 [ngClass]="theme" class="ui center aligned header">{{ artistName }}</h2>
   <h3 [ngClass]="theme" class="ui center aligned header">{{ artistFollower }} {{ "spotifyArtist.followers" | translate }}</h3>
-  <button class="ui button" [routerLink]="['/spotify/search']">
+  <button class="ui button" (click)="goBack()">
     <i class="left arrow icon"></i>
     {{ "spotifyArtist.back" | translate }}
   </button>

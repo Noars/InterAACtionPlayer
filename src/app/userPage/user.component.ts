@@ -9,6 +9,7 @@ import exportFromJSON from 'export-from-json';
 import { UserFormComponent } from '../playlist/dialogComponents/userForm/user-form.component';
 import { DeleteUserComponent } from '../playlist/dialogComponents/deleteUser/delete-user.component';
 import { ModifyUserComponent } from '../playlist/dialogComponents/modifyUser/modify-user.component';
+import { ImportuserComponent } from "../playlist/dialogComponents/importUser/importuser.component";
 
 /**
  * Import Services
@@ -17,8 +18,7 @@ import { ThemeService } from '../services/theme.service';
 import { SaveService } from '../services/save.service';
 import { DefaultService } from '../services/default.service';
 import { UsersService } from '../services/users.service';
-import { LanguageService } from '../services/language.service';
-import {ImportuserComponent} from "../playlist/dialogComponents/importUser/importuser.component";
+import {LanguageService} from "../services/language.service";
 
 @Component({
   selector: 'app-user',
@@ -30,7 +30,6 @@ export class UserComponent implements OnInit {
   usersList = [];
 
   theme = "";
-  showBtn = false;
   disableEditBtn = "";
   loading = "";
 
@@ -45,6 +44,8 @@ export class UserComponent implements OnInit {
 
   ngOnInit(): void {
     this.notLogging();
+    this.languageService.activeLanguage = location.href.substring(24,26);
+    this.languageService.switchLanguage();
     this.theme = this.themeService.theme;
     this.themeService.themeObservable.subscribe(value => {
       this.theme = value;
@@ -65,7 +66,7 @@ export class UserComponent implements OnInit {
     this.saveService.updatePlaylist();
     this.saveService.updateSettings();
     this.saveService.updateMapPlaylist();
-    this.router.navigate(['playlist']);
+    this.router.navigate([this.languageService.activeLanguage + '/playlist']);
   }
 
   /**
@@ -75,7 +76,7 @@ export class UserComponent implements OnInit {
     this.usersService.typeUser = "user";
     this.usersService.idUser = id;
     this.saveService.updateUser();
-    this.router.navigate(['playlist']);
+    this.router.navigate([this.languageService.activeLanguage + '/playlist']);
   }
 
   /**
@@ -144,7 +145,6 @@ export class UserComponent implements OnInit {
           this.saveService.playlistUser,
           this.saveService.namePlaylistUser,
           this.saveService.themeUser,
-          this.saveService.languageUser,
           this.saveService.dwellTimeUser,
           this.saveService.alertMessageUser,
           mapPlaylist
@@ -200,15 +200,6 @@ export class UserComponent implements OnInit {
   }
 
   /**
-   * @param value
-   *
-   * Set the language according with the choice of the user
-   */
-  setLanguage(value){
-    this.languageService.switchLanguage(value);
-  }
-
-  /**
    * Allows to display or hide buttons Modify and Delete
    */
   goEdit(){
@@ -222,9 +213,15 @@ export class UserComponent implements OnInit {
   isListUserEmpty(){
     if (this.usersList.length == 0){
       this.disableEditBtn = "disabled";
-      this.goEdit();
     }else {
       this.disableEditBtn = "";
     }
+  }
+
+  /**
+   * Allows to close the interAACtion Player
+   */
+  logout(){
+    this.dialog.open(LogoutAppComponent);
   }
 }

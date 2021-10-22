@@ -89,9 +89,6 @@ export class UsersService {
         "type": "string"
       },
       {
-        "type": "string"
-      },
-      {
         "type": "object",
         "properties": {
           "dwellTime": {

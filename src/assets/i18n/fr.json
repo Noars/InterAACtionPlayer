@@ -113,6 +113,12 @@
     "cancel": "Annuler",
     "submit": "Modifer"
   },
+  "logoutApp": {
+    "title": "Quitter InterAACtion Player ?",
+    "text": "Voulez-vous quitter InterAACtion Player et revenir au menu ?",
+    "yes": "Oui",
+    "no": "Non"
+  },
   "account": {
     "title": "Comptes",
     "spotify": "Compte Spotify",
@@ -198,7 +204,8 @@
     "english": "Anglais",
     "sun": "Thème clair",
     "moon": "Thème sombre",
-    "editBtn": "Mode édition"
+    "editBtn": "Mode édition",
+    "logoutBtn": "Déconnexion"
   },
   "userForm": {
     "title": "Nouvelle utilisateur",

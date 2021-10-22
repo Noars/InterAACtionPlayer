@@ -3,6 +3,7 @@ import { fromEvent } from 'rxjs';
 import { debounceTime, pluck, distinctUntilChanged, filter, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { ThemeService } from '../../../../../../../src/app/services/theme.service';
+import {LanguageService} from "../../../../../../../src/app/services/language.service";
 
 @Component({
   selector: 'app-search-input',
@@ -22,11 +23,12 @@ export class SearchInputComponent implements OnInit,AfterViewInit {
   /**
    * @param router
    * @param themeService
+   * @param languageService
    *
    * Initialize the router for navigate between page
    * And allows to initialize the page with the right theme
    */
-  constructor(router: Router, themeService: ThemeService) {
+  constructor(router: Router, themeService: ThemeService, private languageService: LanguageService) {
     this.router = router;
     this.themeService = themeService;
     this.theme = this.themeService.theme;
@@ -77,6 +79,6 @@ export class SearchInputComponent implements OnInit,AfterViewInit {
    * Allows to return to the Playlist web page
    */
   goPlaylist() {
-    this.router.navigate(['/playlist']);
+    this.router.navigate([this.languageService.activeLanguage + '/playlist']);
   }
 }

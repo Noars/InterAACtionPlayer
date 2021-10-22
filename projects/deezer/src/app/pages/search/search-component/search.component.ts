@@ -11,6 +11,7 @@ import { GlobalService } from '../../../services/global.service';
  * Import Models
  */
 import { IResult } from '../../../models/iresult';
+import {LanguageService} from "../../../../../../../src/app/services/language.service";
 
 @Component({
   selector: 'app-search',
@@ -31,11 +32,15 @@ export class SearchComponent implements OnInit {
    * @param router
    * @param themeService
    * @param globalService
+   * @param languageService
    *
    * Initialize the router for navigate between page
    * And allows to initialize the page with the right theme
    */
-  constructor(router: Router, themeService: ThemeService, globalService: GlobalService) {
+  constructor(router: Router,
+              themeService: ThemeService,
+              globalService: GlobalService,
+              private languageService: LanguageService) {
     this.router = router;
     this.themeService = themeService;
     this.theme = this.themeService.theme;
@@ -61,7 +66,7 @@ export class SearchComponent implements OnInit {
    * Allows to return to the Playlist web page
    */
   goPlaylist() {
-    this.router.navigate(['/playlist']);
+    this.router.navigate([this.languageService.activeLanguage +  '/playlist']);
   }
 
   /**
@@ -71,6 +76,6 @@ export class SearchComponent implements OnInit {
    */
   public navigate(artistId): void {
     this.globalService.idArtistChoose = artistId;
-    this.router.navigate(['/deezer/artists', artistId]);
+    this.router.navigate([this.languageService.activeLanguage + '/deezer/artists', artistId]);
   }
 }

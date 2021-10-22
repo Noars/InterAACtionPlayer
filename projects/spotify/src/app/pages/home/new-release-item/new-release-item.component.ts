@@ -10,6 +10,7 @@ import { NewReleasesItem } from '../models/new-releases-model';
  * Import Services
  */
 import {ThemeService} from '../../../../../../../src/app/services/theme.service';
+import {LanguageService} from "../../../../../../../src/app/services/language.service";
 
 @Component({
   selector: 'app-new-release-item',
@@ -26,7 +27,7 @@ export class NewReleaseItemComponent implements OnInit {
   newReleaseArtistName;
   newReleaseType;
 
-  constructor(private router: Router, private themeService : ThemeService) {
+  constructor(private router: Router, private themeService : ThemeService, private languageService: LanguageService) {
     this.theme = themeService.theme;
   }
 
@@ -89,6 +90,6 @@ export class NewReleaseItemComponent implements OnInit {
   public navigate(newRelease: any): void {
     let newReleaseId: number = 0;
     newRelease.type === 'artist' ?  newReleaseId = newRelease.id : newReleaseId = newRelease.id;
-    this.router.navigate(['/spotify/album', newReleaseId]);
+    this.router.navigate([this.languageService.activeLanguage + '/spotify/album', newReleaseId]);
   }
 }

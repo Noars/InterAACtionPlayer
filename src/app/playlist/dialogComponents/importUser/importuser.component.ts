@@ -90,7 +90,6 @@ export class ImportuserComponent implements OnInit {
             this.fileUser[0][4], //Language
             this.fileUser[0][5], //DwellTime
             this.fileUser[0][6], //AlertMessage
-            this.mapPlaylist //mapPlaylist
           );
           setTimeout(() => {
             this.dialog.closeAll();
