@@ -12,7 +12,7 @@ export class LanguageService {
   /**
    * @param translate -> Initialize ngx-translate library
    *
-   * Set the default language to English (en)
+   * Set the default language to French (fr)
    */
   constructor(private translate: TranslateService) {
       this.translate.setDefaultLang(this.startLanguage);

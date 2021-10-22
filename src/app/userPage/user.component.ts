@@ -30,7 +30,6 @@ export class UserComponent implements OnInit {
   usersList = [];
 
   theme = "";
-  showBtn = false;
   disableEditBtn = "";
   loading = "";
 
@@ -212,7 +211,6 @@ export class UserComponent implements OnInit {
   isListUserEmpty(){
     if (this.usersList.length == 0){
       this.disableEditBtn = "disabled";
-      this.goEdit();
     }else {
       this.disableEditBtn = "";
     }
@@ -222,11 +220,6 @@ export class UserComponent implements OnInit {
    * Allows to close the interAACtion Player
    */
   logout(){
-    exportFromJSON({
-      data: "",
-      fields: {} ,
-      fileName: "close161918",
-      exportType: exportFromJSON.types.txt
-    });
+    this.dialog.open(LogoutAppComponent);
   }
 }
