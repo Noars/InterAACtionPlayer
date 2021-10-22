@@ -3,15 +3,12 @@ import { MatDialog } from '@angular/material/dialog';
 import { GlobalService } from '../../../../../projects/spotify/src/app/services/global.service';
 import { NotifierService } from 'angular-notifier';
 import { TranslateService } from '@ngx-translate/core';
-import {normalizePassiveListenerOptions} from "@angular/cdk/platform";
 
 /**
  * Import functions javascript
  */
 declare var loginDeezer: any;
 declare var logoutDeezer: any;
-declare var initStatusDeezer: any;
-declare var getStatusDeezer: any;
 
 @Component({
   selector: 'app-accounts',
@@ -19,8 +16,6 @@ declare var getStatusDeezer: any;
   styleUrls: ['./accounts.component.css']
 })
 export class AccountsComponent implements OnInit {
-
-  statusDeezer;
 
   constructor(private dialog: MatDialog,
               private globalService: GlobalService,
@@ -51,18 +46,6 @@ export class AccountsComponent implements OnInit {
    */
   loginDeezer(){
     loginDeezer();
-    initStatusDeezer();
-    this.getStatusDeezer();
-  }
-
-  getStatusDeezer(){
-    this.statusDeezer = getStatusDeezer();
-    console.log(this.statusDeezer);
-    setTimeout(() => {
-      if (this.statusDeezer != 'connected' || 'notConnected' || 'unknown' || 'not_authorized'){
-        this.getStatusDeezer();
-      }
-    }, 1000);
   }
 
   /**

@@ -38,6 +38,7 @@ import { AlertService } from './services/alert.service';
  * Import Models
  */
 import { Types } from './model/types-interface';
+import {LoginNotificationService} from "./services/login-notification.service";
 
 /**
  * Import functions javascript
@@ -136,7 +137,8 @@ export class PlaylistComponent implements OnInit {
               defaultService: DefaultService,
               usersService: UsersService,
               authGuardService: AuthguardService,
-              alertService: AlertService) {
+              alertService: AlertService,
+              private loginNotification: LoginNotificationService,) {
     this.notifier = notifier;
     this.sanitizer = sanitizer;
     this.dialog = dialog;
@@ -353,6 +355,8 @@ export class PlaylistComponent implements OnInit {
       if (this.isPlaylistEmpty()){
         this.goEdit();
       }
+      this.loginNotification.getStatusDeezer();
+      this.loginNotification.getStatusSpotify();
     });
   }
 
