@@ -19,6 +19,7 @@ import { SaveService } from '../services/save.service';
 import { DefaultService } from '../services/default.service';
 import { UsersService } from '../services/users.service';
 import {LanguageService} from "../services/language.service";
+import {LogoutAppComponent} from "../playlist/dialogComponents/logoutApp/logout-app.component";
 
 @Component({
   selector: 'app-user',
@@ -197,13 +198,6 @@ export class UserComponent implements OnInit {
    */
   setTheme(value){
     this.themeService.emitTheme(value);
-  }
-
-  /**
-   * Allows to display or hide buttons Modify and Delete
-   */
-  goEdit(){
-    this.showBtn = !this.showBtn;
   }
 
   /**

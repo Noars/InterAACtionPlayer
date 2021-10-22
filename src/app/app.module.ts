@@ -57,6 +57,7 @@ import { DeezerPlayerComponent } from './playlist/audioPlayer/deezerPlayer/deeze
 import { AccountsComponent } from './playlist/dialogComponents/accounts/accounts.component';
 import { ImportuserComponent } from './playlist/dialogComponents/importUser/importuser.component';
 import { SettingsPageComponent } from './settingsPage/settings-page.component';
+import { LogoutAppComponent } from "./playlist/dialogComponents/logoutApp/logout-app.component";
 
 /**
  * Import module Sub-Application
@@ -106,7 +107,8 @@ import { PipeModule } from '../../projects/deezer/src/app/pipe/pipe.module';
     DeezerPlayerComponent,
     AccountsComponent,
     ImportuserComponent,
-    SettingsPageComponent
+    SettingsPageComponent,
+    LogoutAppComponent
   ],
   imports: [
     BrowserModule,
@@ -124,6 +126,8 @@ import { PipeModule } from '../../projects/deezer/src/app/pipe/pipe.module';
       {path: 'en/user', component: UserComponent},
       {path: 'fr/playlist', component: PlaylistComponent},
       {path: 'en/playlist', component: PlaylistComponent},
+      {path: 'fr/settings', component: SettingsPageComponent},
+      {path: 'en/settings', component: SettingsPageComponent},
       {path: 'fr/youtube', loadChildren: '../../projects/src/app/app.module#YoutubeShareModule'},
       {path: 'en/youtube', loadChildren: '../../projects/src/app/app.module#YoutubeShareModule'},
       {path: 'fr/spotify', loadChildren: '../../projects/src/app/app.module#SpotifySharedModule'},

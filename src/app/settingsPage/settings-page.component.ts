@@ -133,43 +133,6 @@ export class SettingsPageComponent implements OnInit {
   }
 
   /**
-   * Show the language currently used in the dropdown menu
-   */
-  setActiveLanguage(){
-    setTimeout(() => {
-      this.usedLanguage = this.language.getActiveLanguage();
-      const elem = document.getElementById(this.usedLanguage);
-      elem.classList.add("active");
-      elem.classList.add("langues");
-    }, 250);
-  }
-
-  /**
-   * Show all languages available
-   */
-  seeLanguages(): void {
-    this.moreLanguages = !this.moreLanguages;
-    this.setActiveLanguage();
-  }
-
-  /**
-   * @param language -> the language chosen by the user
-   *
-   * Set the new language chosen by the user
-   */
-  switchLanguage(language: string){
-    const oldElem = document.getElementById(this.usedLanguage);
-    const newElem = document.getElementById(language);
-    oldElem.classList.remove("active");
-    oldElem.classList.remove("langues");
-    newElem.classList.add("active");
-    newElem.classList.add("langues");
-    this.usedLanguage = language;
-    this.language.switchLanguage(this.usedLanguage);
-    this.saveService.updateSettings();
-  }
-
-  /**
    * Check if the value entered by the user is >= 1000.0
    * Else return an error
    */

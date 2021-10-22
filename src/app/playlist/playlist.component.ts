@@ -332,7 +332,7 @@ export class PlaylistComponent implements OnInit {
    * If it's the case then enable edit mode
    */
   openSettings(){
-    this.router.navigate(['/settings']);
+    this.router.navigate([ this.languageService.activeLanguage + '/settings']);
   }
 
   /**
