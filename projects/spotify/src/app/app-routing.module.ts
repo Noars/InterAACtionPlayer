@@ -4,7 +4,7 @@ import { AppComponent } from './app.component';
 
 const routes: Routes = [
   { // default route
-    path: 'spotify',
+    path: 'fr/spotify',
     component: AppComponent,
     children: [
       { // route => spotify/home

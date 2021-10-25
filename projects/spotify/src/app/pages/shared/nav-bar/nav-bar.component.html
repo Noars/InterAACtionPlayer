@@ -3,15 +3,15 @@
     <img class="ui mini spaced image" src="assets/banner-ico.png" alt="logo spotify">
     Spotify
   </a>
-  <a class="item" routerLink="home">
+  <a class="item" (click)="goHome()">
     <i class="home icon"></i>
     {{ 'spotifyNavbar.home' | translate }}
   </a>
-  <a class="item" routerLink="search">
+  <a class="item" (click)="goSearch()">
     <i class="search icon"></i>
     {{ 'spotifyNavbar.search' | translate }}
   </a>
-  <a class="item" routerLink="/playlist">
+  <a class="item" (click)="goPlaylist()">
     <i class="arrow left icon"></i>
     {{ 'spotifyNavbar.playlist' | translate }}
   </a>

@@ -41,28 +41,26 @@
     "new" : "Nouvelle playlist"
   },
   "settingsPlaylist": {
-    "dwellTime": "Temps de temporisation",
-    "dwellTimeForm": "Forme du DwellTime",
+    "dwellTime": "Temps de temporisation ",
+    "dwellTimeForm": "Forme du DwellTime ",
     "settings": "Configurations",
-    "themes": "Thème",
+    "themes": "Thème ",
     "light": "Clair",
     "dark": "Sombre",
-    "languages": "Langues",
-    "duration": "Durée du Dwell Time",
-    "cancel": "Annuler",
-    "save": "Sauvegarder",
+    "languages": "Langues ",
+    "duration": "Durée du Dwell Time ",
     "english-language": "Anglais",
     "french-language": "Français",
     "spinnerInside": "Intérieur",
     "spinnerOutside": "Extérieur",
-    "alertMessage": "Désactiver message d'alert",
+    "alertMessage": "Désactiver message d'alert ",
     "diskProgress": "Disque",
     "circleProgress": "Cercle",
-    "or": "ou",
     "enable": "Activer",
     "disable": "Désactiver",
     "yes": "Oui",
-    "no": "Non"
+    "no": "Non",
+    "back": "Retour"
   },
   "savePlaylist": {
     "title": "Sauvegarder la Playlist ?",
@@ -114,6 +112,12 @@
     "imgEmpty": "Image vide !",
     "cancel": "Annuler",
     "submit": "Modifer"
+  },
+  "logoutApp": {
+    "title": "Quitter InterAACtion Player ?",
+    "text": "Voulez-vous quitter InterAACtion Player et revenir au menu ?",
+    "yes": "Oui",
+    "no": "Non"
   },
   "account": {
     "title": "Comptes",
@@ -200,7 +204,8 @@
     "english": "Anglais",
     "sun": "Thème clair",
     "moon": "Thème sombre",
-    "editBtn": "Mode édition"
+    "editBtn": "Mode édition",
+    "logoutBtn": "Déconnexion"
   },
   "userForm": {
     "title": "Nouvelle utilisateur",
