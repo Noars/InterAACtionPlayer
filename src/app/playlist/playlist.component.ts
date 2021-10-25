@@ -39,6 +39,7 @@ import { AlertService } from './services/alert.service';
  */
 import { Types } from './model/types-interface';
 import {LanguageService} from "../services/language.service";
+import {LogoutAppComponent} from "./dialogComponents/logoutApp/logout-app.component";
 
 /**
  * Import functions javascript
@@ -167,7 +168,6 @@ export class PlaylistComponent implements OnInit {
    * Then check if the playlist is empty, if it's the case active the edit mode
    */
   ngOnInit(): void {
-    this.authGuardService.canAccess();
     this.themeService.themeObservable.subscribe(value => {
       this.theme = value;
       if (value == "inverted"){
@@ -448,7 +448,7 @@ export class PlaylistComponent implements OnInit {
   logout(){
     logoutDeezer();
     this.globalService.getLogoutAccountSpotify();
-    this.router.navigate([ this.languageService.activeLanguage + '/user']);
+    this.dialog.open(LogoutAppComponent);
   }
 
   /**

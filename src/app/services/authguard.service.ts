@@ -20,7 +20,7 @@ export class AuthguardService{
     this.saveService.getUser();
     setTimeout(() => {
       if (this.usersService.idUser != "" && this.usersService.typeUser != ""){
-        this.saveService.initPlaylist(this.usersService.idUser);
+        this.saveService.initPlaylist();
       } else {
         this.router.navigate(['user']);
       }

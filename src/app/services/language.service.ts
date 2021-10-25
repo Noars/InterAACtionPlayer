@@ -1,24 +1,27 @@
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { ActivatedRoute } from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
 })
 export class LanguageService {
 
-  public startLanguage: string = "default";
-  public activeLanguage: string = location.href.substring(24, 26);
+  public startLanguage: string = "fr";
+  public activeLanguage: string;
 
   /**
    * @param translate -> Initialize ngx-translate library
+   * @param activatedRoute
    *
-   * Set the default language to French (fr)
+   * Set language to default
    */
-  constructor(private translate: TranslateService) {
+  constructor(private translate: TranslateService, private activatedRoute: ActivatedRoute) {
       this.translate.setDefaultLang(this.startLanguage);
+      this.activeLanguage = location.href.substring(24,26);
       setTimeout(() => {
         this.switchLanguage();
-      }, 500);
+      }, 300);
   }
 
   /**
@@ -26,9 +29,5 @@ export class LanguageService {
    */
   public switchLanguage(){
     this.translate.use(this.activeLanguage);
-  }
-
-  public getActiveLanguage(){
-    return this.activeLanguage;
   }
 }

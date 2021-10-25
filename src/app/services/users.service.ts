@@ -16,7 +16,7 @@ export class UsersService {
   idUser = "";
   listUsers: Users[] = [];
   randomId;
-  imgChoose;
+  imgChoose: string | ArrayBuffer = "";
   wantDeleteUser = false;
   userToModify;
   wantModifyUser = false;
