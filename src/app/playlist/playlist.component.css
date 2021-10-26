@@ -111,7 +111,11 @@ figcaption{
 }
 
 .noMargin{
-  margin: 0;
+  margin: 0 5px 0 0 !important;
+}
+
+.circular{
+  transform: translateY(7px);
 }
   /* ------------------------------ ID ------------------------------------ */
 
