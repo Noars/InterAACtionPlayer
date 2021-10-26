@@ -75,6 +75,12 @@ export class PlaylistComponent implements OnInit {
   textColor = "";
   index = -1;
 
+  statusSpotify = "red";
+  textStatusSpotify = "playlist.logOutSpotify"
+
+  statusDeezer = "red";
+  textStatusDeezer = "playlist.logOutDeezer"
+
   btnType: number = 1;
   idProgressIndicatorBtnNext = "btnNextProgressSpinner";
   idProgressIndicatorBtnPrevious = "btnPreviousProgressSpinner";
@@ -184,6 +190,28 @@ export class PlaylistComponent implements OnInit {
         this.goEdit()
       }
     },500 );
+    this.checkStatus();
+  }
+
+  checkStatus(){
+    this.loginNotification.getStatusDeezer();
+    this.loginNotification.getStatusSpotify();
+    setTimeout(() => {
+      if (this.loginNotification.logOnSpotify){
+        this.statusSpotify = "green";
+        this.textStatusSpotify = "playlist.logInSpotify"
+      }else {
+        this.statusSpotify = "red";
+        this.textStatusSpotify = "playlist.logOutSpotify"
+      }
+      if (this.loginNotification.logOnDeezer){
+        this.statusDeezer = "green";
+        this.textStatusDeezer = "playlist.logInDeezer"
+      }else {
+        this.statusDeezer = "red";
+        this.textStatusDeezer = "playlist.logOutDeezer"
+      }
+    }, 3000);
   }
 
   /**

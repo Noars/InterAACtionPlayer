@@ -1,4 +1,9 @@
 <div id="dz-root"></div>
+<div id="statusLogin">
+  <i class="ui circular label" [class]="statusSpotify"></i>{{ textStatusSpotify | translate }}
+  <br>
+  <i class="ui circular label noMargin" [class]="statusDeezer"></i>{{ textStatusDeezer | translate }}
+</div>
 <br>
 <div *ngIf="displaySideBar() && !fullScreen" [ngClass]="theme" class="ui four left vertical visible sidebar labeled icon menu">
   <a id="playlistSideIcon" class="item" (click)="goOnElement('playlist')"

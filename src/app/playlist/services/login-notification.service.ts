@@ -16,8 +16,6 @@ export class LoginNotificationService {
   statusSpotify;
 
   constructor() {
-    this.getStatusDeezer();
-    this.getStatusSpotify();
   }
 
   getStatusDeezer(){
@@ -44,7 +42,5 @@ export class LoginNotificationService {
   getStatusSpotify(){
     this.statusSpotify = location.href;
     this.logOnSpotify = this.statusSpotify.includes('access_token');
-    console.log('Status Spotify : ', this.logOnSpotify);
   }
-
 }
