@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { PlaylistService } from '../../services/playlist.service';
 import { PrefabricatedPlaylistComponent } from '../prefabricatedPlaylist/prefabricated-playlist.component';
+import {LanguageService} from "../../../services/language.service";
 
 @Component({
   selector: 'app-dialog-choose-type',
@@ -15,7 +16,7 @@ export class DialogChooseTypeComponent implements OnInit {
   private dialog: MatDialog;
   private playlistService: PlaylistService;
 
-  constructor(router: Router, dialog: MatDialog, playlistService: PlaylistService) {
+  constructor(router: Router, dialog: MatDialog, playlistService: PlaylistService, private languageService: LanguageService) {
     this.router = router;
     this.dialog = dialog;
     this.playlistService = playlistService;
@@ -30,7 +31,7 @@ export class DialogChooseTypeComponent implements OnInit {
   goYoutube(): void {
     this.playlistService.addBtnAddInEmptyPlaylist = false;
     this.dialog.closeAll();
-    this.router.navigate(['/youtube']);
+    this.router.navigate([this.languageService.activeLanguage + '/youtube']);
   }
 
   /**
@@ -39,7 +40,7 @@ export class DialogChooseTypeComponent implements OnInit {
   goSpotify() {
     this.playlistService.addBtnAddInEmptyPlaylist = false;
     this.dialog.closeAll();
-    this.router.navigate(['/spotify']);
+    this.router.navigate([this.languageService.activeLanguage + '/spotify']);
   }
 
   /**
@@ -48,7 +49,7 @@ export class DialogChooseTypeComponent implements OnInit {
   goDeezer(){
     this.playlistService.addBtnAddInEmptyPlaylist = false;
     this.dialog.closeAll();
-    this.router.navigate(['/deezer']);
+    this.router.navigate([this.languageService.activeLanguage + '/deezer']);
   }
 
   /**

@@ -3,7 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { AppComponent} from './app.component';
 
 const routes: Routes = [
-  { path: 'youtube', component: AppComponent },
+  { path: 'fr/youtube', component: AppComponent },
+  { path: 'en/youtube', component: AppComponent },
 ];
 
 @NgModule({

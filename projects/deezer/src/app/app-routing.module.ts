@@ -4,7 +4,7 @@ import { AppComponent } from './app.component';
 
 const routes: Routes = [
   { // default route
-    path: 'deezer',
+    path: 'fr/deezer',
     component: AppComponent,
     children: [
       { // route => deezer/search

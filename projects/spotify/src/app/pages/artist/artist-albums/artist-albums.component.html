@@ -4,7 +4,7 @@
       <img [src]="album.images | errorImage" alt="{{ album.name }}">
     </div>
     <div class="content">
-      <a class="header" [routerLink]="['/spotify/album', album.id]">{{ album.name }}</a>
+      <a class="header" (click)="seeAlbum(album)">{{ album.name }}</a>
     </div>
   </div>
 </div>
