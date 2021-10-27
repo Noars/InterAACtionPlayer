@@ -383,8 +383,8 @@ export class PlaylistComponent implements OnInit {
       if (this.isPlaylistEmpty()){
         this.goEdit();
       }
-      this.loginNotification.getStatusDeezer();
-      this.loginNotification.getStatusSpotify();
+      console.log("je check les status");
+      this.checkStatus();
     });
   }
 

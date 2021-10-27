@@ -23,7 +23,8 @@ export class LoginNotificationService {
     initStatusDeezer();
     this.statusDeezer = getStatusDeezer();
     setTimeout(() => {
-      if (this.statusDeezer != 'connected' && this.statusDeezer !=  'notConnected' && this.statusDeezer !=  'unknown' &&  this.statusDeezer != 'not_authorized'){
+      console.log(typeof this.statusDeezer);
+      if (this.statusDeezer != 'connected' && this.statusDeezer !=  'notConnected' && this.statusDeezer !=  'unknown' &&  this.statusDeezer != 'not_authorized' &&  this.statusDeezer != ""){
         this.getStatusDeezer();
       }else {
         this.updateStatusDeezer();
@@ -32,7 +33,7 @@ export class LoginNotificationService {
   }
 
   updateStatusDeezer(){
-    if (this.statusDeezer == 'notConnected' || 'unknown' || 'not_authorized'){
+    if (this.statusDeezer == 'notConnected' || this.statusDeezer == 'unknown' || this.statusDeezer == 'not_authorized' || this.statusDeezer == ""){
       this.logOnDeezer = false;
     }else if (this.statusDeezer == 'connected'){
       this.logOnDeezer = true;
