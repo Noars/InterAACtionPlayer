@@ -39,6 +39,8 @@ import { AlertService } from './services/alert.service';
  */
 import { Types } from './model/types-interface';
 import {LanguageService} from "../services/language.service";
+import {LogoutAppComponent} from "./dialogComponents/logoutApp/logout-app.component";
+import {DialogSiteASFRComponent} from '../dialog-site-asfr/dialog-site-asfr.component';
 
 /**
  * Import functions javascript
@@ -106,57 +108,25 @@ export class PlaylistComponent implements OnInit {
   refresh = false;
   loopProgressIndicator = false;
 
-  private notifier: NotifierService;
-  private sanitizer: DomSanitizer;
-  public dialog: MatDialog;
-  private playlistService: PlaylistService;
   public playList: Types[];
-  private router: Router;
-  private saveService: SaveService;
-  private dwelltimeService: DwelltimeService;
-  private themeService: ThemeService;
-  private translate: TranslateService;
-  private globalService: GlobalService;
-  private audioService: AudioService;
-  private defaultService: DefaultService;
-  private usersService: UsersService;
-  private authGuardService: AuthguardService;
-  private alertService: AlertService;
 
-  constructor(notifier: NotifierService,
-              sanitizer: DomSanitizer,
-              dialog: MatDialog,
-              playlistService: PlaylistService,
-              router: Router,
-              saveService: SaveService,
-              dwelltimeService: DwelltimeService,
-              themeService: ThemeService,
-              translate: TranslateService,
-              globalService: GlobalService,
-              audioService: AudioService,
-              defaultService: DefaultService,
-              usersService: UsersService,
-              authGuardService: AuthguardService,
-              alertService: AlertService,
+  constructor(private notifier: NotifierService,
+              private sanitizer: DomSanitizer,
+              private dialog: MatDialog,
+              private playlistService: PlaylistService,
+              private router: Router,
+              private saveService: SaveService,
+              private dwelltimeService: DwelltimeService,
+              private themeService: ThemeService,
+              private translate: TranslateService,
+              private globalService: GlobalService,
+              private audioService: AudioService,
+              private defaultService: DefaultService,
+              private usersService: UsersService,
+              private authGuardService: AuthguardService,
+              private alertService: AlertService,
               private languageService: LanguageService) {
-    this.notifier = notifier;
-    this.sanitizer = sanitizer;
-    this.dialog = dialog;
-    this.playlistService = playlistService;
-    this.playList = playlistService.playList;
-    this.router = router;
-    this.saveService = saveService;
-    this.dwelltimeService = dwelltimeService;
-    this.themeService = themeService;
-    this.theme = this.themeService.theme;
-    this.textColor = this.themeService.themeBody;
-    this.translate = translate;
-    this.globalService = globalService;
-    this.audioService = audioService;
-    this.defaultService = defaultService;
-    this.usersService = usersService;
-    this.authGuardService = authGuardService;
-    this.alertService = alertService;
+    this.saveService.getUser();
   }
 
   /**
@@ -167,7 +137,9 @@ export class PlaylistComponent implements OnInit {
    * Then check if the playlist is empty, if it's the case active the edit mode
    */
   ngOnInit(): void {
-    this.authGuardService.canAccess();
+    this.playList = this.playlistService.playList;
+    this.theme = this.themeService.theme;
+    this.textColor = this.themeService.themeBody;
     this.themeService.themeObservable.subscribe(value => {
       this.theme = value;
       if (value == "inverted"){
@@ -178,12 +150,15 @@ export class PlaylistComponent implements OnInit {
     });
     new DialogChooseTypeComponent(this.router, this.dialog, this.playlistService, this.languageService);
     setTimeout(() => {
-      initDeezer();
-      this.playList = this.playlistService.playList;
-      this.displaySideBar();
-      if (this.isPlaylistEmpty()){
-        this.goEdit()
-      }
+      this.saveService.initPlaylist();
+      setTimeout(() => {
+        initDeezer();
+        this.playList = this.playlistService.playList;
+        this.displaySideBar();
+        if (this.isPlaylistEmpty()){
+          this.goEdit()
+        }
+      },500);
     },500 );
   }
 
@@ -448,7 +423,7 @@ export class PlaylistComponent implements OnInit {
   logout(){
     logoutDeezer();
     this.globalService.getLogoutAccountSpotify();
-    this.router.navigate([ this.languageService.activeLanguage + '/user']);
+    this.dialog.open(LogoutAppComponent);
   }
 
   /**
@@ -891,5 +866,12 @@ export class PlaylistComponent implements OnInit {
 
   getColorOfTitle(){
     return (this.theme =='') ? '#81197f' : 'white';
+  }
+
+  openDialogSiteASFR() {
+    this.dialog.open(DialogSiteASFRComponent,{
+      height: '90%',
+      width: '90%'
+    });
   }
 }

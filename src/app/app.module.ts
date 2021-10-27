@@ -58,6 +58,7 @@ import { AccountsComponent } from './playlist/dialogComponents/accounts/accounts
 import { ImportuserComponent } from './playlist/dialogComponents/importUser/importuser.component';
 import { SettingsPageComponent } from './settingsPage/settings-page.component';
 import { LogoutAppComponent } from "./playlist/dialogComponents/logoutApp/logout-app.component";
+import { LoadingPageComponent } from './loadingPage/loading-page.component';
 
 /**
  * Import module Sub-Application
@@ -82,6 +83,7 @@ export function createTranslateLoader(http: HttpClient) {
 import { MapPipe } from './playlist/pipe/map.pipe';
 import { PipesModule } from '../../projects/spotify/src/app/pipes/pipes.module';
 import { PipeModule } from '../../projects/deezer/src/app/pipe/pipe.module';
+import { DialogSiteASFRComponent } from './dialog-site-asfr/dialog-site-asfr.component';
 
 @NgModule({
   declarations: [
@@ -108,7 +110,9 @@ import { PipeModule } from '../../projects/deezer/src/app/pipe/pipe.module';
     AccountsComponent,
     ImportuserComponent,
     SettingsPageComponent,
-    LogoutAppComponent
+    LogoutAppComponent,
+    LoadingPageComponent,
+    DialogSiteASFRComponent
   ],
   imports: [
     BrowserModule,
@@ -120,22 +124,13 @@ import { PipeModule } from '../../projects/deezer/src/app/pipe/pipe.module';
     SpotifySharedModule.forRoot(),
     DeezerSharedModule.forRoot(),
     RouterModule.forRoot([
-      {path: 'fr', redirectTo: 'fr/user', pathMatch:'full'},
-      {path: 'en', redirectTo: 'en/user', pathMatch:'full'},
-      {path: 'fr/user', component: UserComponent},
-      {path: 'en/user', component: UserComponent},
-      {path: 'fr/playlist', component: PlaylistComponent},
-      {path: 'en/playlist', component: PlaylistComponent},
-      {path: 'fr/settings', component: SettingsPageComponent},
-      {path: 'en/settings', component: SettingsPageComponent},
-      {path: 'fr/youtube', loadChildren: '../../projects/src/app/app.module#YoutubeShareModule'},
-      {path: 'en/youtube', loadChildren: '../../projects/src/app/app.module#YoutubeShareModule'},
-      {path: 'fr/spotify', loadChildren: '../../projects/src/app/app.module#SpotifySharedModule'},
-      {path: 'en/spotify', loadChildren: '../../projects/src/app/app.module#SpotifySharedModule'},
-      {path: 'fr/deezer', loadChildren: '../../projects/src/app/app.module#DeezerSharedModule'},
-      {path: 'en/deezer', loadChildren: '../../projects/src/app/app.module#DeezerSharedModule'},
-      {path: '', redirectTo: 'fr/user', pathMatch:'full'},
-      {path: '**', redirectTo: 'fr/user', pathMatch:'full'},
+      /*{path: ':lg/user', component: UserComponent},*/
+      {path: ':lg/home/:id', component: LoadingPageComponent},
+      {path: ':lg/playlist', component: PlaylistComponent},
+      {path: ':lg/settings', component: SettingsPageComponent},
+      {path: ':lg/youtube', loadChildren: '../../projects/src/app/app.module#YoutubeShareModule'},
+      {path: ':lg/spotify', loadChildren: '../../projects/src/app/app.module#SpotifySharedModule'},
+      {path: ':lg/deezer', loadChildren: '../../projects/src/app/app.module#DeezerSharedModule'},
     ], {useHash: true}),
     TranslateModule.forRoot({
       loader: {

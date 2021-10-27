@@ -142,7 +142,7 @@ export class SaveService {
   /**
    * We recovery the recorded elem of playlist in database
    */
-  initPlaylist(idUser){
+  initPlaylist(){
 
     // Opening of the Database
     this.openRequest = indexedDB.open('SavePlaylist', this.version);
@@ -152,7 +152,7 @@ export class SaveService {
       const db = event.target.result;
 
       // Recovery of the recorded Playlist
-      const playlistStore = db.transaction(['Playlist'], 'readwrite').objectStore('Playlist').get(idUser);
+      const playlistStore = db.transaction(['Playlist'], 'readwrite').objectStore('Playlist').get(this.userService.idUser);
       playlistStore.onsuccess = e => {
         this.playlistService.playList = playlistStore.result;
       };
@@ -161,7 +161,7 @@ export class SaveService {
       };
 
       // Recovery of the recorded Playlist name
-      const playlistNameStore = db.transaction(['PlaylistName'], 'readwrite').objectStore('PlaylistName').get(idUser);
+      const playlistNameStore = db.transaction(['PlaylistName'], 'readwrite').objectStore('PlaylistName').get(this.userService.idUser);
       playlistNameStore.onsuccess = e => {
         this.playlistService.nameActualPlaylist = playlistNameStore.result;
       };
@@ -170,7 +170,7 @@ export class SaveService {
       };
 
       // Recovery of the recorded Theme
-      const themeStore = db.transaction(['Theme'], 'readwrite').objectStore('Theme').get(idUser);
+      const themeStore = db.transaction(['Theme'], 'readwrite').objectStore('Theme').get(this.userService.idUser);
       themeStore.onsuccess = e => {
         this.themeService.emitTheme(themeStore.result);
       };
@@ -179,7 +179,7 @@ export class SaveService {
       };
 
       // Recovery of the recorded DwellTime
-      const dwellTimeStore = db.transaction(['DwellTime'], 'readwrite').objectStore('DwellTime').get(idUser);
+      const dwellTimeStore = db.transaction(['DwellTime'], 'readwrite').objectStore('DwellTime').get(this.userService.idUser);
       dwellTimeStore.onsuccess = e => {
         this.dwellTimeService.setConfiguration(dwellTimeStore.result);
       };
@@ -188,7 +188,7 @@ export class SaveService {
       };
 
       // Recovery of the recorded Alert Message
-      const alertMessageStore = db.transaction(['alertMessage'], 'readwrite').objectStore('alertMessage').get(idUser);
+      const alertMessageStore = db.transaction(['alertMessage'], 'readwrite').objectStore('alertMessage').get(this.userService.idUser);
       alertMessageStore.onsuccess = e => {
         this.alertService.doNotShowAgain = alertMessageStore.result;
       };
@@ -197,7 +197,7 @@ export class SaveService {
       };
 
       // Recovery of the recorded mapPlaylist
-      const mapPlaylistStore = db.transaction(['mapPlaylist'], 'readwrite').objectStore('mapPlaylist').get(idUser);
+      const mapPlaylistStore = db.transaction(['mapPlaylist'], 'readwrite').objectStore('mapPlaylist').get(this.userService.idUser);
       mapPlaylistStore.onsuccess = e => {
         this.playlistService.mapPlaylist = mapPlaylistStore.result;
       };

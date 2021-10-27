@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ImportuserComponent } from './importuser.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import {TranslateModule} from '@ngx-translate/core';
 
 describe('ImportuserComponent', () => {
   let component: ImportuserComponent;
@@ -8,7 +10,8 @@ describe('ImportuserComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ImportuserComponent ]
+      declarations: [ ImportuserComponent ],
+      imports: [MatDialogModule,TranslateModule.forRoot()]
     })
     .compileComponents();
   });

@@ -58,7 +58,6 @@ export class SettingsPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.authGuardService.canAccess();
     setTimeout(() => {
       this.ready = true;
     }, 500);

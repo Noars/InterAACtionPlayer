@@ -1,24 +1,34 @@
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { ActivationEnd, Router} from "@angular/router";
+import { filter, map } from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
 })
 export class LanguageService {
 
-  public startLanguage: string = "default";
-  public activeLanguage: string = location.href.substring(24, 26);
+  public startLanguage: string = "fr";
+  public activeLanguage: string;
 
   /**
    * @param translate -> Initialize ngx-translate library
+   * @param router
    *
-   * Set the default language to French (fr)
+   * Set language to default
    */
-  constructor(private translate: TranslateService) {
+  constructor(private translate: TranslateService, private router: Router) {
       this.translate.setDefaultLang(this.startLanguage);
+      this.router.events.pipe(
+        filter(e => (e instanceof ActivationEnd) && (Object.keys(e.snapshot.params).length > 0)),
+        map(e => e instanceof ActivationEnd ? e.snapshot.params : {})
+      ).subscribe(params => {
+        console.log(Object.values(params)[0]);
+        this.activeLanguage = Object.values(params)[0];
+      });
       setTimeout(() => {
         this.switchLanguage();
-      }, 500);
+      }, 300);
   }
 
   /**
@@ -26,9 +36,5 @@ export class LanguageService {
    */
   public switchLanguage(){
     this.translate.use(this.activeLanguage);
-  }
-
-  public getActiveLanguage(){
-    return this.activeLanguage;
   }
 }

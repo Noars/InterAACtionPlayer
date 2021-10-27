@@ -25,7 +25,6 @@ export class AppComponent implements  OnInit{
    */
   ngOnInit(): void {
     this.globalService.accessToken;
-    this.authGuardService.canAccess();
     this.router.navigate([this.languageService.activeLanguage + '/spotify/home']);
   }
 }
