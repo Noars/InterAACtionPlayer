@@ -33,12 +33,13 @@ import { DefaultService } from '../services/default.service';
 import { UsersService } from '../services/users.service';
 import { AuthguardService } from '../services/authguard.service';
 import { AlertService } from './services/alert.service';
+import {LoginNotificationService} from "./services/login-notification.service";
+import {LanguageService} from "../services/language.service";
 
 /**
  * Import Models
  */
 import { Types } from './model/types-interface';
-import {LoginNotificationService} from "./services/login-notification.service";
 
 /**
  * Import functions javascript
@@ -74,6 +75,7 @@ export class PlaylistComponent implements OnInit {
   theme = "";
   textColor = "";
   index = -1;
+  displayTheSideBar = false;
 
   statusSpotify = "red";
   textStatusSpotify = "playlist.logOutSpotify"
@@ -92,11 +94,9 @@ export class PlaylistComponent implements OnInit {
   idProgressIndicatorBtnClose = "btnCloseProgressSpinner";
 
   sideIconType: number = 2;
-  idProgressIndicatorSideIconPlaylist = "sideIconPlaylistProgressSpinner";
   idProgressIndicatorSideIconUp = "sideIconUpProgressSpinner";
   idProgressIndicatorSideIconDown = "sideIconDownProgressSpinner";
   idProgressIndicatorSideIconMusic= "sideIconMusicProgressSpinner";
-  idProgressIndicatorSideIconVideo = "sideIconVideoProgressSpinner";
 
   iconType: number = 5;
   idProgressIndicatorIconSave = "iconSaveProgressSpinner";
@@ -111,6 +111,7 @@ export class PlaylistComponent implements OnInit {
   idProgressIndicatorIconNew = "iconNewProgressSpinner";
 
   refresh = false;
+  loopProgressIndicator = false;
 
   private notifier: NotifierService;
   private sanitizer: DomSanitizer;
@@ -144,7 +145,8 @@ export class PlaylistComponent implements OnInit {
               usersService: UsersService,
               authGuardService: AuthguardService,
               alertService: AlertService,
-              private loginNotification: LoginNotificationService,) {
+              private loginNotification: LoginNotificationService,
+              private languageService: LanguageService) {
     this.notifier = notifier;
     this.sanitizer = sanitizer;
     this.dialog = dialog;
@@ -182,10 +184,11 @@ export class PlaylistComponent implements OnInit {
         this.textColor = "lightMode";
       }
     });
-    new DialogChooseTypeComponent(this.router, this.dialog, this.playlistService);
+    new DialogChooseTypeComponent(this.router, this.dialog, this.playlistService, this.languageService);
     setTimeout(() => {
       initDeezer();
       this.playList = this.playlistService.playList;
+      this.displaySideBar();
       if (this.isPlaylistEmpty()){
         this.goEdit()
       }
@@ -236,6 +239,9 @@ export class PlaylistComponent implements OnInit {
    */
   deleteCurrentElement(){
     this.launch = false;
+    setTimeout(() => {
+      this.displaySideBar();
+    }, 300)
   }
 
   /**
@@ -276,6 +282,7 @@ export class PlaylistComponent implements OnInit {
           this.saveService.updatePlaylist();
           this.notifier.notify('warning', this.translate.instant('notifier.newPlaylist'));
           this.goEdit();
+          this.displaySideBar();
         }
       });
     }else {
@@ -361,13 +368,7 @@ export class PlaylistComponent implements OnInit {
    * If it's the case then enable edit mode
    */
   openSettings(){
-    this.isEditModeActive();
-    const settingsDialog = this.dialog.open(SettingsComponent);
-    settingsDialog.afterClosed().subscribe( () => {
-      if (this.isPlaylistEmpty()){
-        this.goEdit();
-      }
-    });
+    this.router.navigate([ this.languageService.activeLanguage + '/settings']);
   }
 
   /**
@@ -416,10 +417,12 @@ export class PlaylistComponent implements OnInit {
     if (this.edit){
       this.disableDragDrop = true;
       this.playlistService.addBtnAdd();
+      this.displaySideBar();
       this.notifier.notify('warning', this.translate.instant('notifier.editOn'));
     }else {
       this.disableDragDrop = false;
       this.playList = this.playlistService.deleteBtnAdd();
+      this.displaySideBar();
       this.notifier.notify('warning', this.translate.instant('notifier.editOff'));
     }
   }
@@ -436,6 +439,7 @@ export class PlaylistComponent implements OnInit {
       this.isCurrentElem(elem);
       this.playList = this.playlistService.deleteToPlaylist(elem);
       this.saveService.updatePlaylist();
+      this.displaySideBar();
       setTimeout(() => {
         this.playlistService.addBtnAdd();
       }, 100);
@@ -447,6 +451,7 @@ export class PlaylistComponent implements OnInit {
           this.isCurrentElem(elem);
           this.playList = this.playlistService.deleteToPlaylist(elem);
           this.saveService.updatePlaylist();
+          this.displaySideBar();
           setTimeout(() => {
             this.playlistService.addBtnAdd();
           }, 100);
@@ -474,7 +479,7 @@ export class PlaylistComponent implements OnInit {
   logout(){
     logoutDeezer();
     this.globalService.getLogoutAccountSpotify();
-    this.router.navigate(['user']);
+    this.router.navigate([ this.languageService.activeLanguage + '/user']);
   }
 
   /**
@@ -491,6 +496,9 @@ export class PlaylistComponent implements OnInit {
       this.refreshAudioPlayer();
       this.goOnElement("watchPlace");
       this.setDefaultVolume();
+      setTimeout(() =>{
+        this.displaySideBar();
+      }, 300);
     }
   }
 
@@ -657,6 +665,7 @@ export class PlaylistComponent implements OnInit {
     this.goOnElement("watchPlace");
     this.setDefaultVolume();
     this.refreshAudioPlayer();
+    this.displaySideBar();
   }
 
   /**
@@ -683,6 +692,7 @@ export class PlaylistComponent implements OnInit {
     this.goOnElement("watchPlace");
     this.setDefaultVolume();
     this.refreshAudioPlayer();
+    this.displaySideBar();
   }
 
   /**
@@ -800,16 +810,18 @@ export class PlaylistComponent implements OnInit {
   /**
    * @param elemId -> id of the element containing the spinner
    * @param spinnerId -> id of the spinner selected
+   * @param loop
    *
    * Show the spinner when the user mouseover the element
    */
-  showProgressIndicator(elemId: string, spinnerId: any) {
+  showProgressIndicator(elemId: string, spinnerId: any, loop?: boolean) {
+    clearInterval(this.timeout);
     const id = document.getElementById(elemId);
     id.style.opacity = '0.5';
-    if (this.dwelltimeService.dwellTime && (elemId != 'btnAddToPlaylistInterAACtionPlayer')){
+    if (this.dwelltimeService.dwellTime){
       const spinner = document.getElementById(String(spinnerId));
       spinner.style.visibility = 'visible';
-      this.startInterval(elemId, spinnerId, id);
+      this.startInterval(elemId, spinnerId, id, loop);
     }
   }
 
@@ -821,6 +833,7 @@ export class PlaylistComponent implements OnInit {
    * Delete the current Interval
    */
   hideProgressIndicator(elemId: string, spinnerId: any) {
+    this.loopProgressIndicator = false;
     const card = document.getElementById(elemId);
     const spinner = document.getElementById(String(spinnerId));
     card.style.opacity = '1';
@@ -834,15 +847,25 @@ export class PlaylistComponent implements OnInit {
    * @param elemId -> id of the element containing the spinner
    * @param spinnerId -> id of the spinner selected
    * @param id -> htmlElement
+   * @param loop
    *
    * When the spinner is show, launch an interval
    * When this interval is finish, simulate a user click
    * If the user leave before the end of the interval, the interval timer is reset
    */
-  startInterval(elemId: string, spinnerId: any, id: HTMLElement) {
+  startInterval(elemId: string, spinnerId: any, id: HTMLElement, loop?: boolean) {
+    if (loop != null) {
+      this.loopProgressIndicator = loop;
+    }
     this.spinnerValue = 0;
     this.timeout = setInterval(() => {
-      if (this.spinnerValue == 100){
+      if (this.spinnerValue == 100 && loop){
+        clearInterval(this.timeout);
+        setTimeout( () => {
+          id.click();
+          this.startInterval(elemId, spinnerId, id, loop);
+        }, 500);
+      }else if (this.spinnerValue == 100){
         clearInterval(this.timeout);
         setTimeout( () => {
           this.hideProgressIndicator(elemId, spinnerId);
@@ -886,6 +909,18 @@ export class PlaylistComponent implements OnInit {
    * True if we can scroll
    */
   displaySideBar(){
-    return document.body.scrollHeight > document.body.offsetHeight;
+    this.displayTheSideBar = document.body.scrollHeight > document.body.offsetHeight;
+  }
+
+  getBrightnessOfAFSRLogo() {
+  return (this.theme =='') ? '1' : '10';
+  }
+
+  getBrightnessOfInterAACtionBoxAFSRLogo() {
+    return (this.theme =='') ? '0.2' : '1';
+  }
+
+  getColorOfTitle(){
+    return (this.theme =='') ? '#81197f' : 'white';
   }
 }

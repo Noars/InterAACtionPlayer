@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { GlobalService } from './services/global.service';
 import { Router } from '@angular/router';
 import { AuthguardService } from '../../../../src/app/services/authguard.service';
+import { LanguageService } from "../../../../src/app/services/language.service";
 
 @Component({
   selector: 'app-root',
@@ -13,7 +14,8 @@ export class AppComponent implements  OnInit{
 
   constructor(private globalService: GlobalService,
               private router: Router,
-              private authGuardService: AuthguardService) {
+              private authGuardService: AuthguardService,
+              private languageService: LanguageService) {
   }
 
   /**
@@ -24,6 +26,6 @@ export class AppComponent implements  OnInit{
   ngOnInit(): void {
     this.globalService.accessToken;
     this.authGuardService.canAccess();
-    this.router.navigate(['/spotify/home']);
+    this.router.navigate([this.languageService.activeLanguage + '/spotify/home']);
   }
 }

@@ -7,7 +7,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { DwelltimeService } from '../../../services/dwelltime.service';
 import { NotifierService } from 'angular-notifier';
 import { ThemeService } from '../../../services/theme.service';
-import { LanguageService } from '../../../services/language.service';
 import { SaveService } from '../../../services/save.service';
 import { TranslateService } from '@ngx-translate/core';
 import { AlertService } from '../../services/alert.service';
@@ -34,9 +33,6 @@ export class SettingsComponent implements OnInit {
   themeDarkValue = "";
   themeValue = "";
 
-  moreLanguages: boolean = false;
-  usedLanguage = "";
-
   error: boolean = false;
   stateValueDwellTime = "";
   stateValueAlertMessage = "";
@@ -45,7 +41,6 @@ export class SettingsComponent implements OnInit {
               private dialog: MatDialog,
               private notifier: NotifierService,
               private themeService: ThemeService,
-              private language: LanguageService,
               private saveService: SaveService,
               private translate: TranslateService,
               private alertService: AlertService) {
@@ -53,7 +48,6 @@ export class SettingsComponent implements OnInit {
     this.dwellTimeValue = this.dwellTimeService.dwellTimeValue;
     this.themeLightEnable = this.themeService.getTypeTheme();
     this.themeValue = this.themeService.theme;
-    this.usedLanguage = this.language.activeLanguage;
     this.dwellTimeSpinnerOutsideBtn = this.dwellTimeService.dwellTimeSpinnerOutsideBtn;
     this.disableAlertMessage = this.alertService.doNotShowAgain;
     this.diskProgress = this.dwellTimeService.diskProgress;
@@ -141,40 +135,6 @@ export class SettingsComponent implements OnInit {
   }
 
   /**
-   * Show the language currently used in the dropdown menu
-   */
-  setActiveLanguage(){
-    const elem = document.getElementById(this.usedLanguage)
-    elem.classList.add("active");
-    elem.classList.add("langues");
-  }
-
-  /**
-   * Show all languages available
-   */
-  seeLanguages(): void {
-    this.moreLanguages = !this.moreLanguages;
-    setTimeout(() => {
-      this.setActiveLanguage();
-    }, 250);
-  }
-
-  /**
-   * @param language -> the language chosen by the user
-   *
-   * Set the new language chosen by the user
-   */
-  switchLanguage(language: string){
-    const oldElem = document.getElementById(this.usedLanguage);
-    const newElem = document.getElementById(language);
-    oldElem.classList.remove("active");
-    oldElem.classList.remove("langues");
-    newElem.classList.add("active");
-    newElem.classList.add("langues");
-    this.usedLanguage = language;
-  }
-
-  /**
    * Check if the value entered by the user is >= 1000.0
    * Else return an error
    */
@@ -232,7 +192,6 @@ export class SettingsComponent implements OnInit {
       this.dwellTimeService.setSizeDwellTimeSpinner();
       this.dwellTimeService.setDiskProgress();
       this.themeService.emitTheme(this.themeValue);
-      this.language.switchLanguage(this.usedLanguage);
       this.alertService.doNotShowAgain = this.disableAlertMessage;
       this.saveService.updateSettings();
       this.notifier.notify('warning', this.translate.instant('notifier.settings'));

@@ -45,28 +45,26 @@
     "logOutDeezer" : "Disconnected of Deezer"
   },
   "settingsPlaylist": {
-    "dwellTime": "DwellTime",
-    "dwellTimeForm": "DwellTime Shape",
+    "dwellTime": "DwellTime ",
+    "dwellTimeForm": "DwellTime Shape ",
     "settings": "Settings",
-    "themes": "Theme",
+    "themes": "Theme ",
     "light": "Light",
     "dark": "Dark",
-    "languages": "Languages",
-    "duration": "Dwell Time duration",
-    "cancel": "Cancel",
-    "save": "Save",
+    "languages": "Languages ",
+    "duration": "Dwell Time duration ",
     "english-language": "English",
     "french-language": "French",
     "spinnerInside": "Inside",
     "spinnerOutside": "Outside",
-    "alertMessage": "Disable Alert message",
+    "alertMessage": "Disable Alert message ",
     "diskProgress": "Disk",
     "circleProgress": "Circle",
-    "or": "or",
     "enable": "Enable",
     "disable": "Disable",
     "yes": "Yes",
-    "no": "No"
+    "no": "No",
+    "back": "Back"
   },
   "savePlaylist": {
     "title": "Save Playlist ?",
@@ -118,6 +116,12 @@
     "imgEmpty": "Image is empty !",
     "cancel": "Cancel",
     "submit": "Modify"
+  },
+  "logoutApp": {
+    "title": "Exit InterAACtion Player ?",
+    "text": "Do you want to leave InterAACtion Player and return to the menu ?",
+    "yes": "Oui",
+    "no": "Non"
   },
   "account": {
     "title": "Accounts",
@@ -204,7 +208,8 @@
     "english": "English",
     "sun": "Light theme",
     "moon": "Dark theme",
-    "editBtn": "Edit mode"
+    "editBtn": "Edit mode",
+    "logoutBtn": "Logout"
   },
   "userForm": {
     "title": "New User",

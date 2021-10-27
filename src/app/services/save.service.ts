@@ -5,11 +5,9 @@ import { Injectable } from '@angular/core';
  */
 import { PlaylistService } from '../playlist/services/playlist.service';
 import { ThemeService } from './theme.service';
-import { LanguageService } from './language.service';
 import { DwelltimeService } from './dwelltime.service';
 import { AlertService } from '../playlist/services/alert.service';
 import { UsersService } from './users.service';
-import {Types} from "../playlist/model/types-interface";
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +19,6 @@ export class SaveService {
   openRequest;
   playlistService: PlaylistService;
   themeService: ThemeService;
-  languageService: LanguageService;
   dwellTimeService: DwelltimeService;
   alertService: AlertService;
   userService: UsersService;
@@ -30,20 +27,17 @@ export class SaveService {
   playlistUser;
   namePlaylistUser;
   themeUser;
-  languageUser;
   dwellTimeUser;
   alertMessageUser;
   mapPlaylistUser;
 
   constructor(playlistService: PlaylistService,
               themeService: ThemeService,
-              languageService: LanguageService,
               dwellTimeService: DwelltimeService,
               alertService: AlertService,
               userService: UsersService) {
     this.playlistService = playlistService;
     this.themeService = themeService;
-    this.languageService = languageService;
     this.dwellTimeService = dwellTimeService;
     this.alertService = alertService;
     this.userService = userService;
@@ -83,13 +77,6 @@ export class SaveService {
         db.createObjectStore('Theme', {autoIncrement: true});
         const themeStore = transaction.objectStore('Theme');
         themeStore.add(this.themeService.theme);
-      }
-
-      // Creation of Language Store if this one does not exist
-      if (!db.objectStoreNames.contains("Language")) {
-        db.createObjectStore('Language', {autoIncrement: true});
-        const languageStore = transaction.objectStore('Language');
-        languageStore.add(this.languageService.activeLanguage);
       }
 
       // Creation of DwellTime Store if this one does not exist
@@ -189,15 +176,6 @@ export class SaveService {
       };
       themeStore.onerror = event => {
         alert('ThemeStore error: ' + event.target.errorCode);
-      };
-
-      // Recovery of the recorded Language
-      const languageStore = db.transaction(['Language'], 'readwrite').objectStore('Language').get(idUser);
-      languageStore.onsuccess = e => {
-        this.languageService.switchLanguage(languageStore.result);
-      };
-      languageStore.onerror = event => {
-        alert('LanguageStore error: ' + event.target.errorCode);
       };
 
       // Recovery of the recorded DwellTime
@@ -308,14 +286,6 @@ export class SaveService {
       const storeThemeRequest = themeObjectStore.get(this.userService.idUser);
       storeThemeRequest.onsuccess = () => {
         themeObjectStore.put(this.themeService.theme, this.userService.idUser);
-      };
-
-      // Update Language Store
-      const languageStore = db.transaction(['Language'], 'readwrite');
-      const languageObjectStore = languageStore.objectStore('Language');
-      const storeLanguageRequest = languageObjectStore.get(this.userService.idUser);
-      storeLanguageRequest.onsuccess = () => {
-        languageObjectStore.put(this.languageService.activeLanguage, this.userService.idUser);
       };
 
       // Update DwellTime Store
@@ -438,7 +408,6 @@ export class SaveService {
 
       db.transaction(['Playlist'], 'readwrite').objectStore('Playlist').delete(user);
       db.transaction(['Theme'], 'readwrite').objectStore('Theme').delete(user);
-      db.transaction(['Language'], 'readwrite').objectStore('Language').delete(user);
       db.transaction(['DwellTime'], 'readwrite').objectStore('DwellTime').delete(user);
       db.transaction(['alertMessage'], 'readwrite').objectStore('alertMessage').delete(user);
       db.transaction(['mapPlaylist'], 'readwrite').objectStore('mapPlaylist').delete(user);
@@ -517,15 +486,6 @@ export class SaveService {
         alert('ThemeStore error: ' + event.target.errorCode);
       };
 
-      // Recovery of the recorded Language
-      const languageStore = db.transaction(['Language'], 'readwrite').objectStore('Language').get(userId);
-      languageStore.onsuccess = e => {
-        this.languageUser = languageStore.result;
-      };
-      languageStore.onerror = event => {
-        alert('LanguageStore error: ' + event.target.errorCode);
-      };
-
       // Recovery of the recorded DwellTime
       const dwellTimeStore = db.transaction(['DwellTime'], 'readwrite').objectStore('DwellTime').get(userId);
       dwellTimeStore.onsuccess = e => {
@@ -563,7 +523,7 @@ export class SaveService {
   /**
    * Allows to add in the database the user imported
    */
-  addImportUser(user, playlist, namePlaylist, theme, language, dwellTime, alertMessage, mapPlaylist){
+  addImportUser(user, playlist, namePlaylist, theme, dwellTime, alertMessage, mapPlaylist){
 
     // Opening of the database
     this.openRequest = indexedDB.open('SavePlaylist', this.version);
@@ -602,14 +562,6 @@ export class SaveService {
       const storeThemeRequest = themeObjectStore.get(user.id);
       storeThemeRequest.onsuccess = () => {
         themeObjectStore.put(theme, user.id);
-      };
-
-      // Update Language Store
-      const languageStore = db.transaction(['Language'], 'readwrite');
-      const languageObjectStore = languageStore.objectStore('Language');
-      const storeLanguageRequest = languageObjectStore.get(user.id);
-      storeLanguageRequest.onsuccess = () => {
-        languageObjectStore.put(language, user.id);
       };
 
       // Update DwellTime Store
