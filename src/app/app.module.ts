@@ -83,6 +83,7 @@ export function createTranslateLoader(http: HttpClient) {
 import { MapPipe } from './playlist/pipe/map.pipe';
 import { PipesModule } from '../../projects/spotify/src/app/pipes/pipes.module';
 import { PipeModule } from '../../projects/deezer/src/app/pipe/pipe.module';
+import { DialogSiteASFRComponent } from './dialog-site-asfr/dialog-site-asfr.component';
 
 @NgModule({
   declarations: [
@@ -110,7 +111,8 @@ import { PipeModule } from '../../projects/deezer/src/app/pipe/pipe.module';
     ImportuserComponent,
     SettingsPageComponent,
     LogoutAppComponent,
-    LoadingPageComponent
+    LoadingPageComponent,
+    DialogSiteASFRComponent
   ],
   imports: [
     BrowserModule,

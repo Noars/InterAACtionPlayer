@@ -40,6 +40,7 @@ import { AlertService } from './services/alert.service';
 import { Types } from './model/types-interface';
 import {LanguageService} from "../services/language.service";
 import {LogoutAppComponent} from "./dialogComponents/logoutApp/logout-app.component";
+import {DialogSiteASFRComponent} from '../dialog-site-asfr/dialog-site-asfr.component';
 
 /**
  * Import functions javascript
@@ -865,5 +866,12 @@ export class PlaylistComponent implements OnInit {
 
   getColorOfTitle(){
     return (this.theme =='') ? '#81197f' : 'white';
+  }
+
+  openDialogSiteASFR() {
+    this.dialog.open(DialogSiteASFRComponent,{
+      height: '90%',
+      width: '90%'
+    });
   }
 }
