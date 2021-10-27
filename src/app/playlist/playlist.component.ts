@@ -17,6 +17,8 @@ import { SavePlaylistComponent } from './dialogComponents/savePlaylist/save-play
 import { LoadPlaylistComponent } from './dialogComponents/loadPlaylist/load-playlist.component';
 import { AlertComponent } from './dialogComponents/alert/alert.component';
 import { AccountsComponent } from './dialogComponents/accounts/accounts.component';
+import { LogoutAppComponent } from "./dialogComponents/logoutApp/logout-app.component";
+import { DialogSiteASFRComponent } from '../dialog-site-asfr/dialog-site-asfr.component';
 
 /**
  * Import Services
@@ -33,8 +35,8 @@ import { DefaultService } from '../services/default.service';
 import { UsersService } from '../services/users.service';
 import { AuthguardService } from '../services/authguard.service';
 import { AlertService } from './services/alert.service';
-import {LoginNotificationService} from "./services/login-notification.service";
-import {LanguageService} from "../services/language.service";
+import { LoginNotificationService } from "./services/login-notification.service";
+import { LanguageService } from "../services/language.service";
 
 /**
  * Import Models
@@ -113,58 +115,25 @@ export class PlaylistComponent implements OnInit {
   refresh = false;
   loopProgressIndicator = false;
 
-  private notifier: NotifierService;
-  private sanitizer: DomSanitizer;
-  public dialog: MatDialog;
-  private playlistService: PlaylistService;
   public playList: Types[];
-  private router: Router;
-  private saveService: SaveService;
-  private dwelltimeService: DwelltimeService;
-  private themeService: ThemeService;
-  private translate: TranslateService;
-  private globalService: GlobalService;
-  private audioService: AudioService;
-  private defaultService: DefaultService;
-  private usersService: UsersService;
-  private authGuardService: AuthguardService;
-  private alertService: AlertService;
 
-  constructor(notifier: NotifierService,
-              sanitizer: DomSanitizer,
-              dialog: MatDialog,
-              playlistService: PlaylistService,
-              router: Router,
-              saveService: SaveService,
-              dwelltimeService: DwelltimeService,
-              themeService: ThemeService,
-              translate: TranslateService,
-              globalService: GlobalService,
-              audioService: AudioService,
-              defaultService: DefaultService,
-              usersService: UsersService,
-              authGuardService: AuthguardService,
-              alertService: AlertService,
-              private loginNotification: LoginNotificationService,
+  constructor(private notifier: NotifierService,
+              private sanitizer: DomSanitizer,
+              private dialog: MatDialog,
+              private playlistService: PlaylistService,
+              private router: Router,
+              private saveService: SaveService,
+              private dwelltimeService: DwelltimeService,
+              private themeService: ThemeService,
+              private translate: TranslateService,
+              private globalService: GlobalService,
+              private audioService: AudioService,
+              private defaultService: DefaultService,
+              private usersService: UsersService,
+              private authGuardService: AuthguardService,
+              private alertService: AlertService,
               private languageService: LanguageService) {
-    this.notifier = notifier;
-    this.sanitizer = sanitizer;
-    this.dialog = dialog;
-    this.playlistService = playlistService;
-    this.playList = playlistService.playList;
-    this.router = router;
-    this.saveService = saveService;
-    this.dwelltimeService = dwelltimeService;
-    this.themeService = themeService;
-    this.theme = this.themeService.theme;
-    this.textColor = this.themeService.themeBody;
-    this.translate = translate;
-    this.globalService = globalService;
-    this.audioService = audioService;
-    this.defaultService = defaultService;
-    this.usersService = usersService;
-    this.authGuardService = authGuardService;
-    this.alertService = alertService;
+    this.saveService.getUser();
   }
 
   /**
@@ -175,7 +144,9 @@ export class PlaylistComponent implements OnInit {
    * Then check if the playlist is empty, if it's the case active the edit mode
    */
   ngOnInit(): void {
-    this.authGuardService.canAccess();
+    this.playList = this.playlistService.playList;
+    this.theme = this.themeService.theme;
+    this.textColor = this.themeService.themeBody;
     this.themeService.themeObservable.subscribe(value => {
       this.theme = value;
       if (value == "inverted"){
@@ -186,13 +157,15 @@ export class PlaylistComponent implements OnInit {
     });
     new DialogChooseTypeComponent(this.router, this.dialog, this.playlistService, this.languageService);
     setTimeout(() => {
-      initDeezer();
-      this.playList = this.playlistService.playList;
-      this.displaySideBar();
-      if (this.isPlaylistEmpty()){
-        this.goEdit()
-      }
-      this.languageService.switchLanguage();
+      this.saveService.initPlaylist();
+      setTimeout(() => {
+        initDeezer();
+        this.playList = this.playlistService.playList;
+        this.displaySideBar();
+        if (this.isPlaylistEmpty()){
+          this.goEdit()
+        }
+      },500);
     },500 );
     this.checkStatus();
   }
@@ -480,7 +453,7 @@ export class PlaylistComponent implements OnInit {
   logout(){
     logoutDeezer();
     this.globalService.getLogoutAccountSpotify();
-    this.router.navigate([ this.languageService.activeLanguage + '/user']);
+    this.dialog.open(LogoutAppComponent);
   }
 
   /**
@@ -923,5 +896,12 @@ export class PlaylistComponent implements OnInit {
 
   getColorOfTitle(){
     return (this.theme =='') ? '#81197f' : 'white';
+  }
+
+  openDialogSiteASFR() {
+    this.dialog.open(DialogSiteASFRComponent,{
+      height: '90%',
+      width: '90%'
+    });
   }
 }

@@ -29,7 +29,7 @@
         {{ "playlist.title" | translate }}
       </span>
     </h1>
-      <a class="imageAFSR"
+      <a class="imageAFSR" (click)="openDialogSiteASFR()"
            [ngStyle]="{ 'background-image': 'url(assets/Logo-AFSR.png)','filter' : 'brightness('+this.getBrightnessOfAFSRLogo()+')' }">
       </a>
     </div>
@@ -268,7 +268,7 @@
         </button>
       </div>
     </div>
-    <a class="imageInterAACtionBoxAFSR"
+    <a class="imageInterAACtionBoxAFSR" (click)="openDialogSiteASFR()"
        [ngStyle]="{ 'background-image': 'url(assets/Logo_InterAACtionbox-AFSR.png)','filter' : 'brightness('+this.getBrightnessOfInterAACtionBoxAFSRLogo()+')' }">
     </a>
   </div>

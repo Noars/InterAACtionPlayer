@@ -1,6 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SettingsPageComponent } from './settings-page.component';
+import {RouterTestingModule} from '@angular/router/testing';
+import {MatDialogModule} from '@angular/material/dialog';
+import {NotifierModule} from 'angular-notifier';
+import {TranslateModule} from '@ngx-translate/core';
 
 describe('SettingsPageComponent', () => {
   let component: SettingsPageComponent;
@@ -8,7 +12,8 @@ describe('SettingsPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SettingsPageComponent ]
+      declarations: [ SettingsPageComponent ],
+      imports: [RouterTestingModule, MatDialogModule, NotifierModule, TranslateModule.forRoot()]
     })
     .compileComponents();
   });
