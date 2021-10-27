@@ -383,7 +383,6 @@ export class PlaylistComponent implements OnInit {
       if (this.isPlaylistEmpty()){
         this.goEdit();
       }
-      console.log("je check les status");
       this.checkStatus();
     });
   }
