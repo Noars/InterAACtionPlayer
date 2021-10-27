@@ -58,6 +58,7 @@ import { AccountsComponent } from './playlist/dialogComponents/accounts/accounts
 import { ImportuserComponent } from './playlist/dialogComponents/importUser/importuser.component';
 import { SettingsPageComponent } from './settingsPage/settings-page.component';
 import { LogoutAppComponent } from "./playlist/dialogComponents/logoutApp/logout-app.component";
+import { SpotifyRedirectComponent } from './spotifyRedirect/spotify-redirect.component';
 
 /**
  * Import module Sub-Application
@@ -108,7 +109,8 @@ import { PipeModule } from '../../projects/deezer/src/app/pipe/pipe.module';
     AccountsComponent,
     ImportuserComponent,
     SettingsPageComponent,
-    LogoutAppComponent
+    LogoutAppComponent,
+    SpotifyRedirectComponent
   ],
   imports: [
     BrowserModule,
@@ -134,8 +136,8 @@ import { PipeModule } from '../../projects/deezer/src/app/pipe/pipe.module';
       {path: 'en/spotify', loadChildren: '../../projects/src/app/app.module#SpotifySharedModule'},
       {path: 'fr/deezer', loadChildren: '../../projects/src/app/app.module#DeezerSharedModule'},
       {path: 'en/deezer', loadChildren: '../../projects/src/app/app.module#DeezerSharedModule'},
-      {path: '', redirectTo: 'fr/user', pathMatch:'full'},
-      {path: '**', redirectTo: 'fr/user', pathMatch:'full'},
+      {path: '', component: SpotifyRedirectComponent},
+      {path: '**', component: SpotifyRedirectComponent},
     ], {useHash: true}),
     TranslateModule.forRoot({
       loader: {

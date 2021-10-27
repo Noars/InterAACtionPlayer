@@ -38,9 +38,4 @@ export class LoginNotificationService {
       this.logOnDeezer = true;
     }
   }
-
-  getStatusSpotify(){
-    this.statusSpotify = location.href;
-    this.logOnSpotify = this.statusSpotify.includes('access_token');
-  }
 }

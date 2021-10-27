@@ -192,13 +192,14 @@ export class PlaylistComponent implements OnInit {
       if (this.isPlaylistEmpty()){
         this.goEdit()
       }
+      this.languageService.switchLanguage();
     },500 );
     this.checkStatus();
   }
 
   checkStatus(){
     this.loginNotification.getStatusDeezer();
-    this.loginNotification.getStatusSpotify();
+    console.log(this.loginNotification.logOnSpotify);
     setTimeout(() => {
       if (this.loginNotification.logOnSpotify){
         this.statusSpotify = "green";
